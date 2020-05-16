@@ -1,9 +1,9 @@
-package com.admin.api;
+package com.admin.api.services;
 
 import java.util.List;
 
-import com.admin.api.User;
-import com.admin.api.UserRepository;
+import com.admin.api.models.User;
+import com.admin.api.repositories.UserRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,6 @@ public class UserService {
   private UserRepository repository;
 
   public List<User> findAll() {
-    return (List<User>) repository.findAll();
+    return (List<User>) this.repository.findAll();
   }
 }

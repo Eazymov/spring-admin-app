@@ -1,4 +1,4 @@
-package com.admin.api;
+package com.admin.api.models;
 
 import javax.persistence.Id;
 import javax.persistence.Table;

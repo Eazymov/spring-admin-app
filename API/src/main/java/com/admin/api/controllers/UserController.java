@@ -1,9 +1,9 @@
-package com.admin.api;
+package com.admin.api.controllers;
 
 import java.util.List;
 
-import com.admin.api.User;
-import com.admin.api.UserService;
+import com.admin.api.models.User;
+import com.admin.api.services.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

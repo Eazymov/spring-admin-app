@@ -1,6 +1,6 @@
-package com.admin.api;
+package com.admin.api.repositories;
 
-import com.admin.api.User;
+import com.admin.api.models.User;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
