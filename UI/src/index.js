@@ -1,14 +1,17 @@
 /* @flow strict */
-import "./styles.scss";
+// eslint-disable-next-line import/no-unassigned-import
+import './normalize.scss';
 
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
 
-import { App } from "./components";
+import { App } from './components';
+import { render } from './lib/react';
 
-ReactDOM.render(
+const $root = document.getElementById('root');
+
+render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById("root")
+  $root,
 );

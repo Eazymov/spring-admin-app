@@ -1,0 +1,5 @@
+{
+  "*.{js,flow}": ["eslint"],
+  "*.{css,scss}": ["stylelint"],
+  "*.{js,flow,json,scss,css,html,md}": ["prettier --check"]
+}

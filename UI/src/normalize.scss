@@ -1,0 +1,112 @@
+@import '~normalize.css';
+@import '~shared/scss/mixins';
+@import '~shared/scss/variables';
+@import '~assets/fonts/SegoeUI/styles.scss';
+@import '~assets/fonts/KonturIconic/styles.css';
+
+:global #root {
+  flex-flow: column;
+  min-height: 100vh;
+  display: flex;
+  flex-grow: 1;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  font-family: inherit;
+  outline: none;
+  padding: 0;
+  margin: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+html {
+  margin-right: calc(100% - 100vw);
+  word-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Roboto, Arial, 'Liberation Sans',
+    'Nimbus Sans L', sans-serif, -apple-system, BlinkMacSystemFont, Oxygen-Sans,
+    Ubuntu, Cantarell;
+  flex-flow: column;
+  min-height: 100%;
+  font-size: 16px;
+  display: flex;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+
+  &:hover {
+    text-decoration: inherit;
+  }
+
+  &:focus {
+    text-decoration: inherit;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+::selection {
+  background-color: $selectionColor;
+}
+
+::-moz-focus-inner {
+  border: 0;
+}
+
+input {
+  line-height: inherit;
+  font-size: inherit;
+  color: inherit;
+
+  &::-ms-clear,
+  &::-ms-reveal {
+    display: none;
+  }
+}
+
+input[type='search'] {
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
