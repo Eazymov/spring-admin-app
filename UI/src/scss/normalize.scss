@@ -1,10 +1,8 @@
 @import '~normalize.css';
-@import '~shared/scss/mixins';
-@import '~shared/scss/variables';
-@import '~assets/fonts/SegoeUI/styles.scss';
-@import '~assets/fonts/KonturIconic/styles.css';
 
-:global #root {
+@import './variables';
+
+#root {
   flex-flow: column;
   min-height: 100vh;
   display: flex;
@@ -38,9 +36,7 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', 'Helvetica Neue', Roboto, Arial, 'Liberation Sans',
-    'Nimbus Sans L', sans-serif, -apple-system, BlinkMacSystemFont, Oxygen-Sans,
-    Ubuntu, Cantarell;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   flex-flow: column;
   min-height: 100%;
   font-size: 16px;

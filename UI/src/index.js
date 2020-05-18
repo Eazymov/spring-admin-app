@@ -1,6 +1,6 @@
 /* @flow strict */
 // eslint-disable-next-line import/no-unassigned-import
-import './normalize.scss';
+import './scss/normalize.scss';
 
 import React from 'react';
 
