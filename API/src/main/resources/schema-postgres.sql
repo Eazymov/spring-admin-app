@@ -1,3 +1,0 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS cities;
-CREATE TABLE users(id serial PRIMARY KEY, name VARCHAR(255));
