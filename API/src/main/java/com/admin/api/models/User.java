@@ -5,22 +5,55 @@ import java.util.UUID;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
   @Id
+  @NotNull
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  private UUID id = UUID.randomUUID();
+
+  @NotNull
+  @Size(min = 0, max = 255)
   private String firstName;
+
+  @NotNull
+  @Size(min = 0, max = 255)
   private String lastName;
+
+  @NotNull
+  @Size(min = 0, max = 255)
   private String patronymic;
+
+  @NotNull
   private String role;
+
+  @NotNull
   private String createdOn;
+
+  @NotNull
   private String updatedOn;
-  private String createdBy;
+
+  @NotNull
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "createdById")
+  private User createdBy;
+
+  @NotNull
   private String updatedBy;
 
   public User() {}
@@ -33,7 +66,7 @@ public class User {
     String role,
     String createdOn,
     String updatedOn,
-    String createdBy,
+    User createdBy,
     String updatedBy
   ) {
     this.id = id;
@@ -75,7 +108,7 @@ public class User {
     return this.updatedOn;
   }
 
-  public String getCreatedBy() {
+  public User getCreatedBy() {
     return this.createdBy;
   }
 

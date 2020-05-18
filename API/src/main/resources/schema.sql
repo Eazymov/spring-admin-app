@@ -19,6 +19,6 @@ CREATE TABLE users(
   role userRole NOT NULL,
   createdOn TIMESTAMP NOT NULL,
   updatedOn TIMESTAMP NOT NULL,
-  createdBy UUID NOT NULL,
+  createdById UUID NOT NULL,
   updatedBy UUID NOT NULL
 );
