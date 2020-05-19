@@ -1,30 +1,38 @@
 package com.admin.api.models;
 
 import java.util.UUID;
+import java.util.Optional;
+
+import java.sql.Timestamp;
+
+import com.admin.api.utils.SQLEnum;
+import com.admin.api.enums.UserRole;
+import com.admin.api.models.ShortUser;
+import com.admin.api.models.ShortUserSerializer;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.EnumType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Enumerated;
+
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "users")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@TypeDef(name = "enum", typeClass = SQLEnum.class)
 public class User {
   @Id
   @NotNull
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id = UUID.randomUUID();
 
   @NotNull
@@ -40,21 +48,27 @@ public class User {
   private String patronymic;
 
   @NotNull
-  private String role;
+  @Type(type = "enum")
+  @Enumerated(EnumType.STRING)
+  private UserRole role;
 
   @NotNull
-  private String createdOn;
+  private Timestamp createdOn;
 
   @NotNull
-  private String updatedOn;
+  private Timestamp updatedOn;
 
   @NotNull
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "createdById")
+  @JsonSerialize(using = ShortUserSerializer.class)
   private User createdBy;
 
   @NotNull
-  private String updatedBy;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "updatedById")
+  @JsonSerialize(using = ShortUserSerializer.class)
+  private User updatedBy;
 
   public User() {}
 
@@ -63,11 +77,11 @@ public class User {
     String firstName,
     String lastName,
     String patronymic,
-    String role,
-    String createdOn,
-    String updatedOn,
+    UserRole role,
+    Timestamp createdOn,
+    Timestamp updatedOn,
     User createdBy,
-    String updatedBy
+    User updatedBy
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -96,15 +110,15 @@ public class User {
     return this.patronymic;
   }
 
-  public String getRole() {
+  public UserRole getRole() {
     return this.role;
   }
 
-  public String getCreatedOn() {
+  public Timestamp getCreatedOn() {
     return this.createdOn;
   }
 
-  public String getUpdatedOn() {
+  public Timestamp getUpdatedOn() {
     return this.updatedOn;
   }
 
@@ -112,7 +126,7 @@ public class User {
     return this.createdBy;
   }
 
-  public String getUpdatedBy() {
+  public User getUpdatedBy() {
     return this.updatedBy;
   }
 }

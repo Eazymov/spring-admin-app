@@ -1,3 +1,3 @@
 #!/bin/bash
 rm -r ./target
-./mvnw spring-boot:run --quiet
+./mvnw spring-boot:run

@@ -12,7 +12,7 @@ CREATE TYPE userRole AS ENUM (
 );
 
 CREATE TABLE users(
-  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+  id UUID PRIMARY KEY NOT NULL,
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
   patronymic VARCHAR(255) NOT NULL,
@@ -20,5 +20,5 @@ CREATE TABLE users(
   createdOn TIMESTAMP NOT NULL,
   updatedOn TIMESTAMP NOT NULL,
   createdById UUID NOT NULL,
-  updatedBy UUID NOT NULL
+  updatedById UUID NOT NULL
 );

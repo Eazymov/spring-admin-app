@@ -22,7 +22,8 @@
     "normalize.css": "^8.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "typed-contracts": "2.3.0"
+    "typed-contracts": "2.3.0",
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "18.1.0",
