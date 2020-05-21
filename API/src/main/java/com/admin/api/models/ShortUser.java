@@ -3,7 +3,7 @@ package com.admin.api.models;
 import java.util.UUID;
 
 public class ShortUser {
-  private UUID id = UUID.randomUUID();
+  private UUID id;
   private String firstName;
 
   public ShortUser(

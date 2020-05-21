@@ -2,12 +2,8 @@ package com.admin.api.models;
 
 import java.io.IOException;
 
-import com.admin.api.models.User;
-import com.admin.api.models.ShortUser;
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 public class ShortUserSerializer extends StdSerializer<User>{
@@ -24,8 +20,7 @@ public class ShortUserSerializer extends StdSerializer<User>{
     User user, 
     JsonGenerator generator, 
     SerializerProvider provider
-  ) throws IOException, JsonProcessingException {
-      
+  ) throws IOException {
     ShortUser shortUser = new ShortUser(user.getId(), user.getFirstName());
 
     generator.writeObject(shortUser);

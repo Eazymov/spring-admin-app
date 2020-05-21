@@ -3,44 +3,75 @@ import styles from './styles.module.scss';
 
 import React from 'react';
 
-import { v4 } from 'uuid';
+import { User } from '../../contracts';
 
 type Props = {||};
 
 export function App(props: Props) {
+  const [users, setUsers] = React.useState<User.Type[]>([]);
+  const id = users[0]?.id ?? null;
+
+  React.useEffect(() => {
+    fetch('http://localhost:8080/users')
+      .then(res => res.json())
+      .then((data: mixed) =>
+        Array.isArray(data) ? data.map(User.validate) : [],
+      )
+      .then(setUsers);
+  }, []);
+
   return (
     <div className={styles.App}>
       <button
         type="button"
-        onClick={() => {
+        onClick={() =>
           fetch('http://localhost:8080/users')
             .then(res => res.json())
-            .then(users => users[0].id)
-            .then(id =>
-              fetch('http://localhost:8080/users', {
-                method: 'POST',
-                body: JSON.stringify({
-                  id,
-                  firstName: 'Edward',
-                  lastName: 'Troshin',
-                  patronymic: 'Yurievich',
-                  role: 'SuperAdmin',
-                  createdOn: new Date().toString(),
-                  updatedOn: new Date().toString(),
-                  createdBy: null,
-                  updatedBy: null,
-                }),
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              }),
+            .then((data: mixed) =>
+              Array.isArray(data) ? data.map(User.validate) : [],
             )
-            .then(res => res.json())
-            .then(console.log);
-        }}
+            .then(setUsers)
+        }
       >
-        Click Me!
+        Reload
       </button>
+      {id !== null && (
+        <button
+          type="button"
+          onClick={() =>
+            fetch('http://localhost:8080/users', {
+              method: 'POST',
+              body: JSON.stringify({
+                id,
+                firstName: 'Edward',
+                lastName: 'Troshin',
+                patronymic: 'Yurievich',
+                userName: 'Eazymov',
+                email: 'eazymov@mail.ru',
+                password: '1234',
+                role: User.rolesEnum.SUPER_ADMIN.value,
+                createdOn: new Date().toString(),
+                updatedOn: new Date().toString(),
+                createdBy: null,
+                updatedBy: null,
+              }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+              .then(res => res.json())
+              .then(User.validate)
+              .then(user => setUsers(prevUsers => prevUsers.concat(user)))
+          }
+        >
+          Click Me!
+        </button>
+      )}
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>{user.firstName}</li>
+        ))}
+      </ul>
     </div>
   );
 }

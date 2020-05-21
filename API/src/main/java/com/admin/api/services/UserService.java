@@ -1,7 +1,6 @@
 package com.admin.api.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import java.sql.Timestamp;
 
@@ -32,6 +31,9 @@ public class UserService {
       userInput.getFirstName(),
       userInput.getLastName(),
       userInput.getPatronymic(),
+      userInput.getUserName(),
+      userInput.getEmail(),
+      userInput.getPassword(),
       userInput.getRole(),
       timeStamp,
       timeStamp,

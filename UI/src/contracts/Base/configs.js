@@ -4,7 +4,7 @@ import * as t from 'typed-contracts';
 import { User } from '../User';
 
 function nestedContract(name: string, value: mixed) {
-  return t.object(User.config)(name, value);
+  return t.object(User.shortConfig)(name, value);
 }
 
 export const config = {
@@ -13,4 +13,8 @@ export const config = {
   updatedOn: t.string,
   createdBy: nestedContract,
   updatedBy: nestedContract,
+};
+
+export const shortConfig = {
+  id: t.string,
 };

@@ -2,17 +2,17 @@
 import { type $Value, createEnum } from '../../lib/Enum';
 
 const rolesConfig = {
-  STANDARD: {
-    label: ('Standard': 'Standard'),
-    value: 0,
-  },
   ADMIN: {
     label: ('Admin': 'Admin'),
-    value: 1,
+    value: ('ADMIN': 'ADMIN'),
+  },
+  STANDARD: {
+    label: ('Standard': 'Standard'),
+    value: ('STANDARD': 'STANDARD'),
   },
   SUPER_ADMIN: {
     label: ('Super Admin': 'Super Admin'),
-    value: 2,
+    value: ('SUPER_ADMIN': 'SUPER_ADMIN'),
   },
 };
 

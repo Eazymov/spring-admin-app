@@ -1,14 +1,11 @@
 package com.admin.api.models;
 
 import java.util.UUID;
-import java.util.Optional;
 
 import java.sql.Timestamp;
 
 import com.admin.api.utils.SQLEnum;
 import com.admin.api.enums.UserRole;
-import com.admin.api.models.ShortUser;
-import com.admin.api.models.ShortUserSerializer;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -25,6 +22,7 @@ import org.hibernate.annotations.TypeDef;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
@@ -46,6 +44,16 @@ public class User {
   @NotNull
   @Size(min = 0, max = 255)
   private String patronymic;
+
+  @NotNull
+  private String userName;
+
+  @NotNull
+  private String email;
+
+  @NotNull
+  @JsonIgnore
+  private String password;
 
   @NotNull
   @Type(type = "enum")
@@ -77,6 +85,9 @@ public class User {
     String firstName,
     String lastName,
     String patronymic,
+    String userName,
+    String email,
+    String password,
     UserRole role,
     Timestamp createdOn,
     Timestamp updatedOn,
@@ -87,6 +98,9 @@ public class User {
     this.firstName = firstName;
     this.lastName = lastName;
     this.patronymic = patronymic;
+    this.userName = userName;
+    this.email = email;
+    this.password = password;
     this.role = role;
     this.createdOn = createdOn;
     this.updatedOn = updatedOn;
@@ -108,6 +122,18 @@ public class User {
 
   public String getPatronymic() {
     return this.patronymic;
+  }
+
+  public String getUserName() {
+    return this.userName;
+  }
+
+  public String getEmail() {
+    return this.email;
+  }
+
+  public String getPassword() {
+    return this.password;
   }
 
   public UserRole getRole() {

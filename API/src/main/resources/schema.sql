@@ -6,9 +6,9 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TYPE IF EXISTS userRole;
 
 CREATE TYPE userRole AS ENUM (
-  'Standard',
-  'Admin',
-  'SuperAdmin'
+  'STANDARD',
+  'ADMIN',
+  'SUPER_ADMIN'
 );
 
 CREATE TABLE users(
@@ -16,6 +16,9 @@ CREATE TABLE users(
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
   patronymic VARCHAR(255) NOT NULL,
+  userName VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   role userRole NOT NULL,
   createdOn TIMESTAMP NOT NULL,
   updatedOn TIMESTAMP NOT NULL,
