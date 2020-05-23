@@ -46,7 +46,7 @@ export function App(props: Props) {
                 firstName: 'Edward',
                 lastName: 'Troshin',
                 patronymic: 'Yurievich',
-                userName: 'Eazymov',
+                username: 'Eazymov',
                 email: 'eazymov@mail.ru',
                 password: '1234',
                 role: User.rolesEnum.SUPER_ADMIN.value,

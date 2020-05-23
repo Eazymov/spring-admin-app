@@ -4,8 +4,6 @@ import java.util.List;
 
 import java.sql.Timestamp;
 
-import java.lang.NullPointerException;
-
 import com.admin.api.models.User;
 import com.admin.api.models.UserInput;
 import com.admin.api.repositories.UserRepository;
@@ -24,21 +22,20 @@ public class UserService {
 
   public User save(UserInput userInput) {
     Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
-    User createdBy = this.repository.findById(userInput.getId()).orElseThrow(NullPointerException::new);
 
     User user = new User(
       userInput.getId(),
       userInput.getFirstName(),
       userInput.getLastName(),
       userInput.getPatronymic(),
-      userInput.getUserName(),
+      userInput.getUsername(),
       userInput.getEmail(),
       userInput.getPassword(),
       userInput.getRole(),
       timeStamp,
       timeStamp,
-      createdBy,
-      createdBy
+      null,
+      null
     );
     
     return (User) this.repository.save(user);

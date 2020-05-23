@@ -4,31 +4,21 @@ import java.util.UUID;
 
 import com.admin.api.enums.UserRole;
 
-import javax.validation.constraints.NotNull;
-
 public class UserInput {
-  @NotNull
   private UUID id;
 
-  @NotNull
   private String firstName;
 
-  @NotNull
   private String lastName;
 
-  @NotNull
   private String patronymic;
 
-  @NotNull
-  private String userName;
+  private String username;
 
-  @NotNull
   private String email;
 
-  @NotNull
   private String password;
 
-  @NotNull
   private UserRole role;
 
   public UserInput() {}
@@ -38,7 +28,7 @@ public class UserInput {
     String firstName,
     String lastName,
     String patronymic,
-    String userName,
+    String username,
     String email,
     String password,
     UserRole role
@@ -47,7 +37,7 @@ public class UserInput {
     this.firstName = firstName;
     this.lastName = lastName;
     this.patronymic = patronymic;
-    this.userName = userName;
+    this.username = username;
     this.email = email;
     this.password = password;
     this.role = role;
@@ -69,8 +59,8 @@ public class UserInput {
     return this.patronymic;
   }
 
-  public String getUserName() {
-    return this.userName;
+  public String getUsername() {
+    return this.username;
   }
 
   public String getEmail() {
@@ -79,6 +69,10 @@ public class UserInput {
 
   public String getPassword() {
     return this.password;
+  }
+
+  public String setPassword(String password) {
+    return this.password = password;
   }
 
   public UserRole getRole() {

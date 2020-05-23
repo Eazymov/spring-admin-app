@@ -5,17 +5,34 @@ import java.util.List;
 import com.admin.api.models.User;
 import com.admin.api.models.UserInput;
 import com.admin.api.services.UserService;
+import com.admin.api.repositories.UserRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @RestController
 public class UserController {
   @Autowired
   private UserService service;
+
+  @Autowired
+  private UserRepository repository;
+
+  @Autowired
+  private BCryptPasswordEncoder cryptEncoder;
+
+  @PostMapping("/sign-up")
+  public User signUp(@RequestBody UserInput user) {
+    String encodedPassword = this.cryptEncoder.encode(user.getPassword());
+
+    user.setPassword(encodedPassword);
+
+    return this.createUser(user);
+  }
 
   @GetMapping("/users")
   public List<User> getUsers() {

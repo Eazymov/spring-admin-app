@@ -16,7 +16,7 @@ CREATE TABLE users(
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
   patronymic VARCHAR(255) NOT NULL,
-  userName VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   role userRole NOT NULL,
