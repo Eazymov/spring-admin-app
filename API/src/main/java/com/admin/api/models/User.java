@@ -7,14 +7,7 @@ import java.sql.Timestamp;
 import com.admin.api.utils.SQLEnum;
 import com.admin.api.enums.UserRole;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.EnumType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -40,6 +33,7 @@ public class User {
   @Size(min = 0, max = 255)
   private String patronymic;
 
+  @Column(unique = true)
   @Size(min = 0, max = 255)
   private String username;
 
