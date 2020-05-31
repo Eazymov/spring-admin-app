@@ -4,14 +4,14 @@ import './scss/normalize.scss';
 
 import React from 'react';
 
-import { App } from './components';
 import { render } from './lib/react';
+import { App, AppContainer } from './components';
 
 const $root = document.getElementById('root');
 
 render(
-  <React.StrictMode>
+  <AppContainer>
     <App />
-  </React.StrictMode>,
+  </AppContainer>,
   $root,
 );

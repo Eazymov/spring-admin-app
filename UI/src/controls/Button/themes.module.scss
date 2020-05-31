@@ -1,0 +1,90 @@
+@import '../../scss/variables.scss';
+
+@import './styles.module.scss';
+
+.default,
+.primary,
+.danger,
+.warning {
+  &::after {
+    background-color: currentColor;
+    transition: opacity 0.2s ease;
+    border-radius: inherit;
+    pointer-events: none;
+    position: absolute;
+    opacity: 0.01;
+    height: 100%;
+    width: 100%;
+    content: '';
+    left: 0;
+    top: 0;
+  }
+}
+
+.default,
+.warning {
+  color: #212121;
+
+  &:hover,
+  &:focus {
+    &::after {
+      opacity: 0.05;
+    }
+  }
+}
+
+.danger,
+.primary {
+  color: #fff;
+
+  &:hover,
+  &:focus {
+    &::after {
+      opacity: 0.1;
+    }
+  }
+}
+
+.danger,
+.primary,
+.warning {
+  $pressed: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  $hovered: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: $pressed;
+
+  &:hover,
+  &:focus {
+    box-shadow: $hovered;
+  }
+
+  &:active {
+    box-shadow: $pressed;
+  }
+}
+
+.default {
+  border: 1px solid currentColor;
+  background-color: transparent;
+  position: relative;
+  color: inherit;
+
+  &.bold {
+    border-width: 2px;
+  }
+}
+
+.primary {
+  background-color: $primaryDarkColor;
+}
+
+.danger {
+  background-color: $errorColor;
+}
+
+.warning {
+  background-color: $warningColor;
+}

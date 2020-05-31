@@ -1,0 +1,17 @@
+@import '../../scss/control.scss';
+
+.Input {
+  @include input;
+
+  font-family: inherit;
+  height: 34px;
+  width: 100%;
+}
+
+.Input.error {
+  @include controlError;
+}
+
+.Input.disabled {
+  @include controlDisabled;
+}

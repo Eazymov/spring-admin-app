@@ -7,12 +7,14 @@ import { User } from '../../contracts';
 
 type Props = {||};
 
+const endpoint = 'http://localhost:8080/users';
+
 export function App(props: Props) {
   const [users, setUsers] = React.useState<User.Type[]>([]);
   const id = users[0]?.id ?? null;
 
   React.useEffect(() => {
-    fetch('http://localhost:8080/users')
+    fetch(endpoint)
       .then(res => res.json())
       .then((data: mixed) =>
         Array.isArray(data) ? data.map(User.validate) : [],
@@ -25,7 +27,7 @@ export function App(props: Props) {
       <button
         type="button"
         onClick={() =>
-          fetch('http://localhost:8080/users')
+          fetch(endpoint)
             .then(res => res.json())
             .then((data: mixed) =>
               Array.isArray(data) ? data.map(User.validate) : [],
@@ -39,7 +41,7 @@ export function App(props: Props) {
         <button
           type="button"
           onClick={() =>
-            fetch('http://localhost:8080/users', {
+            fetch(endpoint, {
               method: 'POST',
               body: JSON.stringify({
                 id,

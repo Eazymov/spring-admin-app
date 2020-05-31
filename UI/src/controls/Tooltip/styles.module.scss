@@ -1,0 +1,72 @@
+.Tooltip {
+  box-shadow: 0 3px 10px 0 rgba(#000, 0.2), 0 0 0 1px rgba(#000, 0.1);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateY(25px);
+  background-color: #fff;
+  pointer-events: none;
+  visibility: hidden;
+  border-radius: 2px;
+  position: fixed;
+  opacity: 0.01;
+  z-index: 100;
+
+  /*
+    Used to not loose focus between tooltip button and content
+    when tooltip trigger is on hover
+  */
+  &::before {
+    $offset: 10px;
+
+    height: calc(100% + #{$offset * 2});
+    width: calc(100% + #{$offset * 2});
+    position: absolute;
+    left: $offset * -1;
+    top: $offset * -1;
+    content: '';
+    z-index: -1;
+  }
+
+  &.isActive {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 0.99;
+  }
+
+  &.transition {
+    transition: visibility 0.1s, transform 0.1s, opacity 0.1s;
+  }
+
+  &.interactive {
+    pointer-events: auto;
+  }
+
+  .arrow {
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid #ccc;
+    transform-origin: 50% 100%;
+    position: absolute;
+    display: none;
+    z-index: 1;
+    height: 0;
+    width: 0;
+
+    &.isVisible {
+      display: block;
+    }
+
+    &::after {
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #fff;
+      top: calc(100% + 1px);
+      position: absolute;
+      z-index: -1;
+      content: '';
+      left: -10px;
+      height: 0;
+      width: 0;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 /* @flow strict */
 import * as React from 'react';
-import ReactDOM from 'react-dom';
 import invariant from 'invariant';
+import * as ReactDOM from 'react-dom';
 
 import { isNotNull } from '../is';
 
@@ -14,5 +14,5 @@ export function render<E: React.ElementType>(
     "Can't render component because element is null",
   );
 
-  ReactDOM.render(node, $element);
+  ReactDOM.render(<React.StrictMode>{node}</React.StrictMode>, $element);
 }

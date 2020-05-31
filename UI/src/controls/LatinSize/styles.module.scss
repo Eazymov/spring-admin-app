@@ -1,0 +1,6 @@
+@for $i from 1 through 12 {
+  /* stylelint-disable-next-line aditayvm/at-rule-no-children */
+  .size-#{$i} {
+    width: percentage($i / 12);
+  }
+}

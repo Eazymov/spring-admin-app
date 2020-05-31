@@ -1,0 +1,81 @@
+@import '../../scss/mixins.scss';
+
+.Button {
+  justify-content: center;
+  font-family: inherit;
+  position: relative;
+  font-weight: 400;
+  outline: none;
+  display: flex;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.tabFocused {
+    transition: none;
+
+    &:focus {
+      @include tabFocused;
+
+      border-color: transparent;
+    }
+  }
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.loading .children {
+  color: transparent;
+}
+
+.children {
+  flex-flow: row nowrap;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+}
+
+.stretch {
+  width: 100%;
+}
+
+.onlyIcon {
+  .leftIcon:last-child,
+  .rightIcon:last-child {
+    margin: 0;
+  }
+}
+
+.leftIcon {
+  margin-right: 4px;
+}
+
+.rightIcon {
+  margin-left: 4px;
+}
+
+.disabled:disabled {
+  background-color: rgb(221, 221, 221);
+  border-color: transparent;
+  box-shadow: none;
+  color: #808080;
+}
+
+.narrow {
+  border-radius: 2px;
+  padding: 0 10px;
+}

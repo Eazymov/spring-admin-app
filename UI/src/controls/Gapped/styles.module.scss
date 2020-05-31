@@ -1,0 +1,13 @@
+.GappedVertical,
+.GappedHorizontal {
+  flex-wrap: nowrap;
+  display: flex;
+}
+
+.GappedVertical {
+  flex-direction: column;
+}
+
+.GappedHorizontal {
+  flex-direction: row;
+}

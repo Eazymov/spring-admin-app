@@ -1,0 +1,12 @@
+@import './variables.scss';
+
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin tabFocused($color: #5199db) {
+  box-shadow: inset 0 0 0 1px #fff, 0 0 0 2px $color;
+  border-color: $color;
+}

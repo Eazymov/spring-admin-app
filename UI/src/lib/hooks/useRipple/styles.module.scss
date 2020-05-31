@@ -1,0 +1,26 @@
+.container {
+  border-radius: inherit;
+  pointer-events: none;
+  position: absolute;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.ripple {
+  animation: ripple ease-in forwards;
+  background-color: currentColor;
+  transform: scale(0.4);
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(2);
+    opacity: 0.01;
+  }
+}

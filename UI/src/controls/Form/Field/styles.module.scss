@@ -1,0 +1,52 @@
+$lineHeight: 20px;
+$fontSize: 14px;
+
+.Field {
+  flex-flow: column nowrap;
+  display: flex;
+}
+
+.Label,
+.Control {
+  line-height: $lineHeight;
+  font-size: $fontSize;
+  flex: 0 1 auto;
+}
+
+.fixedWidth {
+  flex-shrink: 0;
+}
+
+.Label {
+  margin: -#{($lineHeight - $fontSize) / 2} 0 5px 0;
+  min-height: $lineHeight;
+}
+
+.Control {
+  flex-flow: column;
+  display: flex;
+}
+
+.grow {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.requiredStar {
+  cursor: default;
+  color: red;
+}
+
+.inline {
+  align-items: center;
+  flex-flow: row;
+
+  .Label,
+  .Control {
+    align-self: flex-start;
+  }
+
+  .Label {
+    margin: 0 5px 0 0;
+  }
+}
