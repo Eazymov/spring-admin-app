@@ -21,6 +21,8 @@ public class UserInput {
 
   private UserRole role;
 
+  public UserInput() {}
+
   public UserInput(
     UUID id,
     String firstName,

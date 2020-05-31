@@ -1,10 +1,11 @@
 package com.admin.api.security;
 
+import com.admin.api.CORSFilter;
 import com.admin.api.services.UserDetailsService;
 import com.admin.api.constants.SecurityConstants;
 
-import org.springframework.http.HttpMethod;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -45,6 +46,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
       .and()
       .addFilter(authenticationFilter)
       .addFilter(authorizationFilter)
+      .addFilterBefore(new CORSFilter(), BasicAuthenticationFilter.class)
       .sessionManagement()
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
