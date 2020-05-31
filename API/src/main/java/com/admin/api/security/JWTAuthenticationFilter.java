@@ -3,7 +3,6 @@ package com.admin.api.security;
 import java.io.IOException;
 
 import java.util.Date;
-import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import com.admin.api.models.UserInput;
+import com.admin.api.models.user.UserInput;
 import com.admin.api.constants.SecurityConstants;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.admin.api.models;
+package com.admin.api.models.user;
 
 import java.io.IOException;
 

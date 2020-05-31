@@ -10,7 +10,7 @@ INSERT INTO users VALUES(
   'Отчество',
   'Eazymov',
   'eazymov@mail.ru',
-  '1234',
+  '$2a$10$jxuDJFVHcNmPao4tb9Qgiue1hqF9sJ1.EuCiDcyJHHWGHnRgnnnVa',
   'SUPER_ADMIN',
   dateTime,
   dateTime,

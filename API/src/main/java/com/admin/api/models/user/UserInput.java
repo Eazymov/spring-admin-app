@@ -1,4 +1,4 @@
-package com.admin.api.models;
+package com.admin.api.models.user;
 
 import java.util.UUID;
 
@@ -20,8 +20,6 @@ public class UserInput {
   private String password;
 
   private UserRole role;
-
-  public UserInput() {}
 
   public UserInput(
     UUID id,

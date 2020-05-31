@@ -4,8 +4,8 @@ import java.util.List;
 
 import java.sql.Timestamp;
 
-import com.admin.api.models.User;
-import com.admin.api.models.UserInput;
+import com.admin.api.models.user.User;
+import com.admin.api.models.user.UserInput;
 import com.admin.api.repositories.UserRepository;
 
 import org.springframework.stereotype.Service;

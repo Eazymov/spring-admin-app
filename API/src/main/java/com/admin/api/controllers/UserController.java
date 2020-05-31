@@ -2,8 +2,8 @@ package com.admin.api.controllers;
 
 import java.util.List;
 
-import com.admin.api.models.User;
-import com.admin.api.models.UserInput;
+import com.admin.api.models.user.User;
+import com.admin.api.models.user.UserInput;
 import com.admin.api.services.UserService;
 import com.admin.api.repositories.UserRepository;
 

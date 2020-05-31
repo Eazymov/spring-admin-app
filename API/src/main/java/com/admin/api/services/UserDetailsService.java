@@ -2,7 +2,7 @@ package com.admin.api.services;
 
 import java.util.Collections;
 
-import com.admin.api.models.User;
+import com.admin.api.models.user.User;
 import com.admin.api.repositories.UserRepository;
 
 import org.springframework.stereotype.Service;
