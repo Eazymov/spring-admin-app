@@ -34,7 +34,18 @@ const importResolver = {
     ],
   },
   plugins: [],
-  settings: {},
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: {
+          resolve: {
+            modules: ['node_modules'],
+            extensions: ['.js', '.js.flow'],
+          },
+        },
+      },
+    },
+  },
 };
 
 exports.importResolver = importResolver;

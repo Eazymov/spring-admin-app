@@ -1,5 +1,5 @@
 /* @flow strict */
-const nodeEnv = require('../nodeEnv');
+const nodeEnv = require('../utils/nodeEnv');
 
 const flowtypeErrors = {
   extends: [],
