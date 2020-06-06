@@ -2,15 +2,12 @@ package com.admin.api.security;
 
 import java.io.IOException;
 
-import java.util.Date;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+
+import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.admin.api.models.user.UserInput;
 import com.admin.api.constants.SecurityConstants;
@@ -55,14 +52,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     HttpServletResponse response,
     FilterChain chain,
     Authentication auth
-  ) throws IOException, ServletException {
-    String userName = ((User) auth.getPrincipal()).getUsername();
-    Date expiresAt = new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME);
+  ) {
+    String username = ((User) auth.getPrincipal()).getUsername();
     Algorithm algorithm = Algorithm.HMAC512(SecurityConstants.SECRET.getBytes());
-    String token = JWT.create()
-      .withSubject(userName)
-      .withExpiresAt(expiresAt)
-      .sign(algorithm);
+    String token = JWT.create().withSubject(username).sign(algorithm);
 
     response.addHeader(
       SecurityConstants.HEADER_STRING,

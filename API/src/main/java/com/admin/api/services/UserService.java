@@ -38,6 +38,6 @@ public class UserService {
       null
     );
     
-    return (User) this.repository.save(user);
+    return this.repository.save(user);
   }
 }

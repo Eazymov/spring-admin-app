@@ -1,11 +1,12 @@
 package com.admin.api.security;
 
-import com.admin.api.CORSFilter;
+import java.util.List;
+import java.util.Arrays;
+
 import com.admin.api.services.UserDetailsService;
 import com.admin.api.constants.SecurityConstants;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -40,13 +41,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
       .cors().and().csrf().disable()
       .authorizeRequests()
       .antMatchers(SecurityConstants.SIGN_UP_URL).permitAll()
-      .antMatchers("/login*").permitAll()
       .anyRequest()
       .authenticated()
       .and()
       .addFilter(authenticationFilter)
       .addFilter(authorizationFilter)
-      .addFilterBefore(new CORSFilter(), BasicAuthenticationFilter.class)
       .sessionManagement()
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
@@ -60,9 +59,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+    List<String> allowedHeaders = Arrays.asList("*");
+    CorsConfiguration config = new CorsConfiguration();
+    List<String> allowedOrigins = Arrays.asList("http://localhost:3000");
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
+    config.setAllowCredentials(true);
+    config.setAllowedMethods(allowedHeaders);
+    config.setAllowedOrigins(allowedOrigins);
     source.registerCorsConfiguration("/**", config);
 
     return source;

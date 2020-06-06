@@ -3,9 +3,8 @@ package com.admin.api.controllers;
 import java.util.List;
 
 import com.admin.api.models.user.User;
-import com.admin.api.models.user.UserInput;
 import com.admin.api.services.UserService;
-import com.admin.api.repositories.UserRepository;
+import com.admin.api.models.user.UserInput;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserController {
   @Autowired
   private UserService service;
-
-  @Autowired
-  private UserRepository repository;
 
   @Autowired
   private BCryptPasswordEncoder cryptEncoder;
