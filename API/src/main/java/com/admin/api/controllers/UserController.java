@@ -1,15 +1,14 @@
 package com.admin.api.controllers;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import com.admin.api.models.user.User;
 import com.admin.api.services.UserService;
 import com.admin.api.models.user.UserInput;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -23,20 +22,25 @@ public class UserController {
 
   @PostMapping("/sign-up")
   public User signUp(@RequestBody UserInput user) {
-    String encodedPassword = this.cryptEncoder.encode(user.getPassword());
+    String encodedPassword = cryptEncoder.encode(user.getPassword());
 
     user.setPassword(encodedPassword);
 
-    return this.createUser(user);
+    return createUser(user);
   }
 
   @GetMapping("/users")
   public List<User> getUsers() {
-    return this.service.findAll();
+    return service.findAll();
+  }
+
+  @GetMapping("/users/{id}")
+  public Optional<User> getUserById(@PathVariable("id") UUID id) {
+    return service.findById(id);
   }
 
   @PostMapping("/users")
   public User createUser(@RequestBody UserInput user) {
-    return this.service.save(user);
+    return service.save(user);
   }
 }

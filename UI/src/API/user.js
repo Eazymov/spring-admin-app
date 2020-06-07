@@ -12,8 +12,10 @@ export const user = {
   },
 
   login(form: LoginForm) {
-    return http.post('/login', {
-      data: form,
-    });
+    return http
+      .post('/login', {
+        data: form,
+      })
+      .then(http.setAuthToken);
   },
 };

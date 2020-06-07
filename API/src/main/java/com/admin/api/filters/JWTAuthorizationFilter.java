@@ -1,8 +1,6 @@
-package com.admin.api.security;
+package com.admin.api.filters;
 
 import java.io.IOException;
-
-import java.util.ArrayList;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -14,14 +12,32 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.admin.api.constants.SecurityConstants;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+  private Algorithm algorithm = Algorithm.HMAC512(SecurityConstants.SECRET.getBytes());
+
   public JWTAuthorizationFilter(AuthenticationManager authManager) {
     super(authManager);
+  }
+
+  private String getToken(HttpServletRequest request) {
+    String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+    if (header == null) {
+      return null;
+    }
+
+    if (header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+      return header.replace(SecurityConstants.TOKEN_PREFIX, "");
+    }
+
+    return null;
   }
 
   @Override
@@ -30,35 +46,33 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     HttpServletResponse response,
     FilterChain chain
   ) throws IOException, ServletException {
-    String header = request.getHeader(SecurityConstants.HEADER_STRING);
+    String token = getToken(request);
 
-    if (header == null || !header.startsWith(SecurityConstants.TOKEN_PREFIX)) {
-      chain.doFilter(request, response);
+    if (token == null) {
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
 
       return;
     }
 
-    UsernamePasswordAuthenticationToken authentication = this.getAuthentication(request);
+    UsernamePasswordAuthenticationToken auth = getAuthentication(token);
 
-    SecurityContextHolder.getContext().setAuthentication(authentication);
+    if (auth == null) {
+      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+      return;
+    }
+
+    SecurityContextHolder.getContext().setAuthentication(auth);
     chain.doFilter(request, response);
   }
 
-  private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-    String token = request.getHeader(SecurityConstants.HEADER_STRING);
-
-    if (token == null) {
-      return null;
-    }
-
-    token = token.replace(SecurityConstants.TOKEN_PREFIX, "");
-    Algorithm algorithm = Algorithm.HMAC512(SecurityConstants.SECRET.getBytes());
+  private UsernamePasswordAuthenticationToken getAuthentication(String token) {
     String user = JWT.require(algorithm).build().verify(token).getSubject();
 
     if (user == null) {
       return null;
     }
 
-    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+    return new UsernamePasswordAuthenticationToken(user, null);
   }
 }

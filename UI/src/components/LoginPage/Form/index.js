@@ -2,10 +2,13 @@
 import styles from './styles.module.scss';
 
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { API } from '../../../API';
 import { validators } from './validators';
+import { isNotNull } from '../../../lib/is';
 import { useForm } from '../../../lib/hooks';
+import { formatError } from '../../../lib/error';
 import { Flex, Form, Input, Button, Gapped } from '../../../controls';
 
 type Props = {||};
@@ -16,10 +19,36 @@ const initialForm = {
   password: '',
 };
 
-export function LoginForm(props: Props) {
-  const onSubmit = React.useCallback(form => {
-    API.user.login(form).then(console.log);
+const routes = {
+  home: {
+    index: '',
+  },
+};
+
+function useError() {
+  const [error, setError] = React.useState(null);
+
+  const handleError = React.useCallback((thrown: mixed) => {
+    const err = formatError(thrown);
+
+    setError(err);
   }, []);
+
+  return [error, handleError];
+}
+
+export function LoginForm(props: Props) {
+  const history = useHistory();
+  const [error, handleError] = useError();
+  const onSubmit = React.useCallback(
+    form => {
+      API.user
+        .login(form)
+        .then(() => history.push(routes.home.index))
+        .catch(handleError);
+    },
+    [history, handleError],
+  );
 
   const { form, errors, submit, setters, validity, required } = useForm(
     initialForm,
@@ -60,6 +89,8 @@ export function LoginForm(props: Props) {
           />
         </Field.Control>
       </Field>
+
+      {isNotNull(error) && <div>{error.message}</div>}
 
       <Flex justify={Flex.justify.CENTER}>
         <Button

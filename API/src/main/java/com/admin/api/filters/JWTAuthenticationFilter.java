@@ -1,8 +1,7 @@
-package com.admin.api.security;
+package com.admin.api.filters;
 
 import java.io.IOException;
 
-import com.admin.api.models.Response;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
@@ -42,7 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         user.getPassword()
       );
 
-      return this.authenticationManager.authenticate(token);
+      return authenticationManager.authenticate(token);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

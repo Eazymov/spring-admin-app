@@ -16,10 +16,10 @@ public class ShortUser {
   }
 
   public UUID getId() {
-    return this.id;
+    return id;
   }
 
   public String getFirstName() {
-    return this.firstName;
+    return firstName;
   }
 }

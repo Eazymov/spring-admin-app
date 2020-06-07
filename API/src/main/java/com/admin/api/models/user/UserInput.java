@@ -44,31 +44,31 @@ public class UserInput {
   }
 
   public UUID getId() {
-    return this.id;
+    return id;
   }
 
   public String getFirstName() {
-    return this.firstName;
+    return firstName;
   }
 
   public String getLastName() {
-    return this.lastName;
+    return lastName;
   }
 
   public String getPatronymic() {
-    return this.patronymic;
+    return patronymic;
   }
 
   public String getUsername() {
-    return this.username;
+    return username;
   }
 
   public String getEmail() {
-    return this.email;
+    return email;
   }
 
   public String getPassword() {
-    return this.password;
+    return password;
   }
 
   public String setPassword(String password) {
@@ -76,6 +76,6 @@ public class UserInput {
   }
 
   public UserRole getRole() {
-    return this.role;
+    return role;
   }
 }

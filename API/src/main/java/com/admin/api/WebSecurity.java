@@ -1,10 +1,12 @@
-package com.admin.api.security;
+package com.admin.api;
 
 import java.util.List;
 import java.util.Arrays;
 
 import com.admin.api.services.UserService;
 import com.admin.api.constants.SecurityConstants;
+import com.admin.api.filters.JWTAuthorizationFilter;
+import com.admin.api.filters.JWTAuthenticationFilter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
@@ -33,7 +35,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    AuthenticationManager authenticationManager = this.authenticationManager();
+    AuthenticationManager authenticationManager = authenticationManager();
     JWTAuthorizationFilter authorizationFilter = new JWTAuthorizationFilter(authenticationManager);
     JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager);
 
@@ -53,8 +55,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth
-      .userDetailsService(this.userService)
-      .passwordEncoder(this.cryptEncoder);
+      .userDetailsService(userService)
+      .passwordEncoder(cryptEncoder);
   }
 
   @Bean
