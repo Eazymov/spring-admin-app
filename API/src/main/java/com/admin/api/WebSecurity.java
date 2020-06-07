@@ -3,7 +3,7 @@ package com.admin.api.security;
 import java.util.List;
 import java.util.Arrays;
 
-import com.admin.api.services.UserDetailsService;
+import com.admin.api.services.UserService;
 import com.admin.api.constants.SecurityConstants;
 
 import org.springframework.context.annotation.Bean;
@@ -20,22 +20,22 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+  private UserService userService;
   private BCryptPasswordEncoder cryptEncoder;
-  private UserDetailsService userDetailsService;
 
   public WebSecurity(
-    UserDetailsService userDetailsService,
+    UserService userService,
     BCryptPasswordEncoder cryptEncoder
   ) {
+    this.userService = userService;
     this.cryptEncoder = cryptEncoder;
-    this.userDetailsService = userDetailsService;
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     AuthenticationManager authenticationManager = this.authenticationManager();
-    JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager);
     JWTAuthorizationFilter authorizationFilter = new JWTAuthorizationFilter(authenticationManager);
+    JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager);
 
     http
       .cors().and().csrf().disable()
@@ -53,7 +53,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth
-      .userDetailsService(this.userDetailsService)
+      .userDetailsService(this.userService)
       .passwordEncoder(this.cryptEncoder);
   }
 

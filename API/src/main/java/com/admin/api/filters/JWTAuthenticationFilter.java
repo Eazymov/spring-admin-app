@@ -2,6 +2,7 @@ package com.admin.api.security;
 
 import java.io.IOException;
 
+import com.admin.api.models.Response;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   private final AuthenticationManager authenticationManager;
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
   public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
     this.authenticationManager = authenticationManager;
@@ -34,7 +36,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     HttpServletResponse response
   ) throws AuthenticationException {
     try {
-      UserInput user = new ObjectMapper().readValue(request.getInputStream(), UserInput.class);
+      UserInput user = objectMapper.readValue(request.getInputStream(), UserInput.class);
       UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
         user.getUsername(),
         user.getPassword()
@@ -52,14 +54,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     HttpServletResponse response,
     FilterChain chain,
     Authentication auth
-  ) {
+  ) throws IOException {
     String username = ((User) auth.getPrincipal()).getUsername();
     Algorithm algorithm = Algorithm.HMAC512(SecurityConstants.SECRET.getBytes());
     String token = JWT.create().withSubject(username).sign(algorithm);
 
-    response.addHeader(
-      SecurityConstants.HEADER_STRING,
-  SecurityConstants.TOKEN_PREFIX + token
-    );
+    response.getWriter().write(token);
   }
 }
