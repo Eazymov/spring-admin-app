@@ -9,6 +9,7 @@ import { validators } from './validators';
 import { isNotNull } from '../../../lib/is';
 import { useForm } from '../../../lib/hooks';
 import { formatError } from '../../../lib/error';
+import { useLoggedInUser } from '../../../store/user';
 import { Flex, Form, Input, Button, Gapped } from '../../../controls';
 
 type Props = {||};
@@ -39,15 +40,18 @@ function useError() {
 
 export function LoginForm(props: Props) {
   const history = useHistory();
+  const [, setUser] = useLoggedInUser();
   const [error, handleError] = useError();
   const onSubmit = React.useCallback(
     form => {
       API.user
         .login(form)
+        .then(() => API.user.getCurrent())
+        .then(setUser)
         .then(() => history.push(routes.home.index))
         .catch(handleError);
     },
-    [history, handleError],
+    [history, setUser, handleError],
   );
 
   const { form, errors, submit, setters, validity, required } = useForm(

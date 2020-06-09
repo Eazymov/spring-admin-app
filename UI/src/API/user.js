@@ -1,5 +1,7 @@
 /* @flow strict */
 import { http } from './http';
+import { User } from '../contracts';
+import { validateString } from '../contracts/validators';
 
 type LoginForm = {|
   username: string,
@@ -16,6 +18,11 @@ export const user = {
       .post('/login', {
         data: form,
       })
+      .then(validateString)
       .then(http.setAuthToken);
+  },
+
+  getCurrent() {
+    return http.get('/users/current').then(User.validate);
   },
 };

@@ -45,6 +45,10 @@ public class UserService implements UserDetailsService {
     return repository.findById(id);
   }
 
+  public User findByUsername(String username) {
+    return repository.findByUsername(username);
+  }
+
   public User save(UserInput userInput) {
     Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
 

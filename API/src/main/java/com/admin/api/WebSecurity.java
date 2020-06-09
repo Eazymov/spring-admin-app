@@ -61,14 +61,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
-    List<String> allowedHeaders = Arrays.asList("*");
-    CorsConfiguration config = new CorsConfiguration();
-    List<String> allowedOrigins = Arrays.asList("http://localhost:3000");
+    CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
     config.setAllowCredentials(true);
-    config.setAllowedMethods(allowedHeaders);
-    config.setAllowedOrigins(allowedOrigins);
     source.registerCorsConfiguration("/**", config);
 
     return source;

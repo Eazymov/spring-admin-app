@@ -8,7 +8,13 @@ import com.admin.api.models.user.User;
 import com.admin.api.services.UserService;
 import com.admin.api.models.user.UserInput;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -37,6 +43,16 @@ public class UserController {
   @GetMapping("/users/{id}")
   public Optional<User> getUserById(@PathVariable("id") UUID id) {
     return service.findById(id);
+  }
+
+  @GetMapping("/users/current")
+  public User getUserById() {
+    String username = (String) SecurityContextHolder
+      .getContext()
+      .getAuthentication()
+      .getPrincipal();
+
+    return service.findByUsername(username);
   }
 
   @PostMapping("/users")

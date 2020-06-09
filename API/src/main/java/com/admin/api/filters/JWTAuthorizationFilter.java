@@ -1,6 +1,8 @@
 package com.admin.api.filters;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -14,6 +16,7 @@ import com.admin.api.constants.SecurityConstants;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -73,6 +76,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
       return null;
     }
 
-    return new UsernamePasswordAuthenticationToken(user, null);
+    return new UsernamePasswordAuthenticationToken(user, null, new ArrayList());
   }
 }

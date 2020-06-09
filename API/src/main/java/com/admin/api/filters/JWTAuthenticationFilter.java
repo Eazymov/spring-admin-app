@@ -57,7 +57,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     String username = ((User) auth.getPrincipal()).getUsername();
     Algorithm algorithm = Algorithm.HMAC512(SecurityConstants.SECRET.getBytes());
     String token = JWT.create().withSubject(username).sign(algorithm);
+    String json = objectMapper.writeValueAsString(token);
 
-    response.getWriter().write(token);
+    response.getWriter().write(json);
   }
 }
