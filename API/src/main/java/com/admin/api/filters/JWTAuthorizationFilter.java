@@ -2,7 +2,6 @@ package com.admin.api.filters;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -14,15 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.admin.api.constants.SecurityConstants;
 
-import org.springframework.http.HttpStatus;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+  private ObjectMapper objectMapper = new ObjectMapper();
   private Algorithm algorithm = Algorithm.HMAC512(SecurityConstants.SECRET.getBytes());
 
   public JWTAuthorizationFilter(AuthenticationManager authManager) {
@@ -43,6 +43,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     return null;
   }
 
+  private void sendError(HttpServletResponse servletResponse) {
+    servletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+  }
+
   @Override
   protected void doFilterInternal(
     HttpServletRequest request,
@@ -52,7 +56,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     String token = getToken(request);
 
     if (token == null) {
-      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      sendError(response);
 
       return;
     }
@@ -60,7 +64,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     UsernamePasswordAuthenticationToken auth = getAuthentication(token);
 
     if (auth == null) {
-      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      sendError(response);
 
       return;
     }

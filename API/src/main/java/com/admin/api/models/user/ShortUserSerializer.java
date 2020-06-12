@@ -21,7 +21,7 @@ public class ShortUserSerializer extends StdSerializer<User>{
     JsonGenerator generator, 
     SerializerProvider provider
   ) throws IOException {
-    ShortUser shortUser = new ShortUser(user.getId(), user.getFirstName());
+    ShortUser shortUser = new ShortUser(user.getId(), user.getUsername());
 
     generator.writeObject(shortUser);
   }

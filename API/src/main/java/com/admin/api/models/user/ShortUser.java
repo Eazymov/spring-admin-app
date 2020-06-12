@@ -5,21 +5,21 @@ import java.util.UUID;
 public class ShortUser {
   private UUID id;
 
-  private String firstName;
+  private String username;
 
   public ShortUser(
     UUID id,
-    String firstName
+    String username
   ) {
     this.id = id;
-    this.firstName = firstName;
+    this.username = username;
   }
 
   public UUID getId() {
     return id;
   }
 
-  public String getFirstName() {
-    return firstName;
+  public String getUsername() {
+    return username;
   }
 }

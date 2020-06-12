@@ -1,13 +1,11 @@
 package com.admin.api;
 
-import java.util.List;
-import java.util.Arrays;
-
 import com.admin.api.services.UserService;
 import com.admin.api.constants.SecurityConstants;
 import com.admin.api.filters.JWTAuthorizationFilter;
 import com.admin.api.filters.JWTAuthenticationFilter;
 
+import com.admin.api.utils.Http422EntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -24,6 +22,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 public class WebSecurity extends WebSecurityConfigurerAdapter {
   private UserService userService;
   private BCryptPasswordEncoder cryptEncoder;
+  private Http422EntryPoint authenticationEntryPoint = new Http422EntryPoint();
 
   public WebSecurity(
     UserService userService,
@@ -39,6 +38,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     JWTAuthorizationFilter authorizationFilter = new JWTAuthorizationFilter(authenticationManager);
     JWTAuthenticationFilter authenticationFilter = new JWTAuthenticationFilter(authenticationManager);
 
+    http
+      .exceptionHandling()
+      .authenticationEntryPoint(authenticationEntryPoint);
     http
       .cors().and().csrf().disable()
       .authorizeRequests()
