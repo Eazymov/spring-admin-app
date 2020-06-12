@@ -1,0 +1,18 @@
+@import '../variables.scss';
+
+.SidebarLayer {
+  transition: opacity $transitionDuration $transitionTimingFunction;
+  background-color: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  position: fixed;
+  opacity: 0.01;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  left: 0;
+  top: 0;
+
+  &.active {
+    opacity: 0.99;
+  }
+}

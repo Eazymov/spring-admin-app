@@ -1,0 +1,50 @@
+@import '../variables.scss';
+
+$activeColor: #1dc4e9;
+
+.MenuItem {
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 7px 15px;
+  color: #a9b7d0;
+  margin: 5px 0 0;
+  display: flex;
+
+  &:focus,
+  &:hover {
+    color: $activeColor;
+  }
+
+  &.active {
+    border-left: 3px solid $activeColor;
+    background: #333f54;
+    padding-left: 12px;
+    color: #fff;
+  }
+}
+
+.icon {
+  transition: transform $transitionDuration $transitionTimingFunction;
+  margin: 4px 10px 4px 7px;
+  flex-shrink: 0;
+  width: 16px;
+}
+
+.text {
+  transition: opacity $transitionDuration $transitionTimingFunction;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 14px;
+  color: inherit;
+  opacity: 0.99;
+}
+
+.isCollapsed {
+  .text {
+    opacity: 0.01;
+  }
+
+  .icon {
+    transform: translateX(-5px);
+  }
+}

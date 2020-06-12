@@ -1,3 +1,5 @@
 /* @flow strict */
 
-export const HTTP_STATUSES = {};
+export const HTTP_STATUSES = {
+  UNAUTHORIZED: 401,
+};

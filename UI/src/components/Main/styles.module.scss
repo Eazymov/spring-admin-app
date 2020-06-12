@@ -1,0 +1,16 @@
+@import '../Sidebar/variables.scss';
+
+.Main {
+  margin-left: $sidebarCollapsedWidth;
+  flex-flow: column nowrap;
+  justify-content: center;
+  display: flex;
+  padding: 30px;
+
+  // stylelint-disable-next-line plugin/no-low-performance-animation-properties
+  transition: margin-left $transitionDuration $transitionTimingFunction;
+
+  &.shifted {
+    margin-left: $sidebarWidth;
+  }
+}

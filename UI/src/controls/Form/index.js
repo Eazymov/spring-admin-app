@@ -1,8 +1,8 @@
 /* @flow strict */
-import { Title } from './Title';
 import { Field } from './Field';
+import { Title } from './Title';
 
 export const Form = {
-  Title,
   Field,
+  Title,
 };

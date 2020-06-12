@@ -1,0 +1,28 @@
+@import '../variables.scss';
+
+.SidebarMenu {
+  flex-flow: column nowrap;
+  padding-bottom: 30px;
+  width: $sidebarWidth;
+  display: flex;
+  flex: 1 0 0;
+
+  :global .ps__rail-y.ps__rail-y {
+    &:hover,
+    &:focus,
+    &.ps--clicking {
+      background-color: transparent;
+    }
+  }
+}
+
+.delimiter {
+  text-transform: uppercase;
+  background: #333f54;
+  padding: 12px 15px;
+  line-height: 1.5;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 5px 0 0;
+  color: #fff;
+}

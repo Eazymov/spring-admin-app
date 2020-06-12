@@ -16,5 +16,5 @@ export const config = {
 
 export const shortConfig = {
   ...Base.shortConfig,
-  firstName: t.string,
+  username: t.string,
 };

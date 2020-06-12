@@ -1,0 +1,7 @@
+@import '../../../scss/mixins.scss';
+
+.TD {
+  @include ellipsis;
+
+  padding: 1.05rem 0.75rem;
+}

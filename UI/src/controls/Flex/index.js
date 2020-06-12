@@ -17,7 +17,6 @@ type Props = {|
   className?: string,
   vertical?: boolean,
   children: React.Node,
-  dataComponent?: string,
 |};
 
 export function Flex(props: Props) {

@@ -2,13 +2,6 @@
 
 @import './variables';
 
-#root {
-  flex-flow: column;
-  min-height: 100vh;
-  display: flex;
-  flex-grow: 1;
-}
-
 *,
 *::before,
 *::after {
@@ -29,6 +22,7 @@
 
 html {
   margin-right: calc(100% - 100vw);
+  background-color: #f4f7fa;
   word-wrap: break-word;
   overflow-x: hidden;
   overflow-y: auto;

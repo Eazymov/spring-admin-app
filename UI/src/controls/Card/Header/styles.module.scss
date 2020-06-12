@@ -1,0 +1,28 @@
+.CardHeader {
+  border-bottom: 1px solid #f1f1f1;
+  justify-content: space-between;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 10px 25px;
+  min-height: 62px;
+  display: flex;
+}
+
+.title {
+  position: relative;
+  margin-right: 10px;
+  line-height: 1.1;
+  font-weight: 400;
+  font-size: 17px;
+  color: #000;
+
+  &::before {
+    background-color: #04a9f5;
+    position: absolute;
+    height: 20px;
+    content: '';
+    left: -25px;
+    width: 4px;
+    top: 0;
+  }
+}

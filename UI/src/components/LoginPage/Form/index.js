@@ -5,12 +5,11 @@ import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { API } from '../../../API';
+import { routes } from '../../../routes';
 import { validators } from './validators';
 import { isNotNull } from '../../../lib/is';
-import { useForm } from '../../../lib/hooks';
-import { formatError } from '../../../lib/error';
-import { useLoggedInUser } from '../../../store/user';
-import { Flex, Form, Input, Button, Gapped } from '../../../controls';
+import { useForm, useError, usePending } from '../../../lib/hooks';
+import { Flex, Form, Error, Input, Button, Gapped } from '../../../controls';
 
 type Props = {||};
 
@@ -20,38 +19,15 @@ const initialForm = {
   password: '',
 };
 
-const routes = {
-  home: {
-    index: '',
-  },
-};
-
-function useError() {
-  const [error, setError] = React.useState(null);
-
-  const handleError = React.useCallback((thrown: mixed) => {
-    const err = formatError(thrown);
-
-    setError(err);
-  }, []);
-
-  return [error, handleError];
-}
-
 export function LoginForm(props: Props) {
   const history = useHistory();
-  const [, setUser] = useLoggedInUser();
   const [error, handleError] = useError();
+  const [login, isLoading] = usePending(API.user.login);
   const onSubmit = React.useCallback(
     form => {
-      API.user
-        .login(form)
-        .then(() => API.user.getCurrent())
-        .then(setUser)
-        .then(() => history.push(routes.home.index))
-        .catch(handleError);
+      login(form).then(() => history.push(routes.root.path), handleError);
     },
-    [history, setUser, handleError],
+    [login, history, handleError],
   );
 
   const { form, errors, submit, setters, validity, required } = useForm(
@@ -94,11 +70,12 @@ export function LoginForm(props: Props) {
         </Field.Control>
       </Field>
 
-      {isNotNull(error) && <div>{error.message}</div>}
+      {isNotNull(error) && <Error error={error} />}
 
       <Flex justify={Flex.justify.CENTER}>
         <Button
           onClick={submit}
+          loading={isLoading}
           size={Button.sizes.BIG}
           theme={Button.themes.PRIMARY}
         >

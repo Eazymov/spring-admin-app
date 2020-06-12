@@ -1,0 +1,39 @@
+@import '../variables.scss';
+
+.MenuGroup {
+  flex-flow: column nowrap;
+  position: relative;
+  display: flex;
+}
+
+.title {
+  transition: opacity $transitionDuration $transitionTimingFunction;
+  text-transform: uppercase;
+  padding: 25px 20px 13px;
+  color: #e8edf7;
+  font-weight: 600;
+  line-height: 1.5;
+  font-size: 10px;
+  opacity: 0.99;
+}
+
+.items {
+  flex-flow: column nowrap;
+  display: flex;
+}
+
+.isCollapsed {
+  .title {
+    opacity: 0.01;
+  }
+
+  &::before {
+    width: calc(#{$sidebarCollapsedWidth} - 30px);
+    background: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    content: '';
+    height: 1px;
+    left: 15px;
+    top: 25px;
+  }
+}

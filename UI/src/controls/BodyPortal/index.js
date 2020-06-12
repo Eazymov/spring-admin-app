@@ -18,5 +18,3 @@ export function BodyPortal(props: Props) {
 
   return ReactDOM.createPortal(children, body);
 }
-
-BodyPortal.displayName = 'BodyPortal';

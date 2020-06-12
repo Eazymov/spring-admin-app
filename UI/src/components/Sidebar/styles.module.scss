@@ -1,0 +1,53 @@
+@import './variables.scss';
+
+.Sidebar {
+  box-shadow: 1px 0 20px 0 #3f4d67;
+  width: $sidebarCollapsedWidth;
+  flex-flow: column nowrap;
+  background: #3f4d67;
+  overflow: hidden;
+  position: fixed;
+  display: flex;
+  height: 100vh;
+  z-index: 2;
+  left: 0;
+  top: 0;
+
+  /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
+  transition: all $transitionDuration $transitionTimingFunction;
+}
+
+.header {
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 10px 20px;
+  display: flex;
+  height: 70px;
+}
+
+.icon {
+  width: 20px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  flex-grow: 1;
+}
+
+.title,
+.burgerButton {
+  transition: opacity $transitionDuration $transitionTimingFunction;
+  opacity: 0.01;
+}
+
+.isOpen,
+.isHovered {
+  width: $sidebarWidth;
+
+  .title,
+  .burgerButton {
+    opacity: 0.99;
+  }
+}

@@ -11,7 +11,6 @@ type Props = {|
   vertical?: boolean,
   className?: string,
   children: React.Node,
-  dataComponent?: string,
 |};
 
 const vClassName = styles.GappedVertical;

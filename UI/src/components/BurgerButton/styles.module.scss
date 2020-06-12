@@ -1,0 +1,36 @@
+.BurgerButton {
+  flex-flow: column nowrap;
+  cursor: pointer;
+  display: flex;
+  width: 17px;
+}
+
+.bar {
+  background-color: #a9b7d0;
+  border-radius: 2px;
+  height: 2.8px;
+  opacity: 0.99;
+
+  /* stylelint-disable-next-line plugin/no-low-performance-animation-properties */
+  transition: all 0.3s;
+
+  &:not(:last-child) {
+    margin-bottom: 2.2px;
+  }
+}
+
+.active {
+  .bar:nth-child(1) {
+    transform: translateY(5px) rotateZ(-45deg);
+    height: 2px;
+  }
+
+  .bar:nth-child(2) {
+    opacity: 0.01;
+  }
+
+  .bar:nth-child(3) {
+    transform: translateY(-5px) rotateZ(45deg);
+    height: 2px;
+  }
+}
