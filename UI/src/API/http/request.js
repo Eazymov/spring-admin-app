@@ -1,9 +1,9 @@
 /* @flow strict */
 import type { Config } from './types';
-import { isNotNull } from '../../lib/is';
 import { Storage } from '../../lib/Storage';
-import { HTTP_HEADERS } from '../../constants';
 import { BusinessError } from '../../lib/error';
+import { isString, isNotNull } from '../../lib/is';
+import { HTTP_HEADERS, CONTENT_TYPES } from '../../constants';
 
 const CREDENTIALS = {
   INCLUDE: ('include': 'include'),
@@ -16,10 +16,12 @@ export function request(route: string, config: Config) {
   const url = `${API_URL}${routeWithoutSlash}`;
   const body = JSON.stringify(config.data);
   const token = Storage.getToken();
-  const headers = {};
+  const headers = new Headers();
+
+  headers.set(HTTP_HEADERS.CONTENT_TYPE, CONTENT_TYPES.JSON);
 
   if (isNotNull(token)) {
-    headers[HTTP_HEADERS.AUTHORIZATION] = `Bearer ${token}`;
+    headers.set(HTTP_HEADERS.AUTHORIZATION, `Bearer ${token}`);
   }
 
   return fetch(url, {
@@ -29,6 +31,12 @@ export function request(route: string, config: Config) {
     credentials: CREDENTIALS.INCLUDE,
   })
     .then(res => {
+      const newToken = res.headers.get('Auth-Token');
+
+      if (isString(newToken)) {
+        Storage.setToken(newToken);
+      }
+
       if (res.ok) {
         return res.json();
       }

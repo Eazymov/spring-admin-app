@@ -1,5 +1,6 @@
 /* @flow strict */
 
 export const HTTP_HEADERS = {
-  AUTHORIZATION: 'Authorization',
+  CONTENT_TYPE: ('Content-Type': 'Content-Type'),
+  AUTHORIZATION: ('Authorization': 'Authorization'),
 };

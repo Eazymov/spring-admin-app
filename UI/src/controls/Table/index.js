@@ -8,29 +8,23 @@ import { TFoot } from './TFoot';
 import { THead } from './THead';
 import { TLoader } from './TLoader';
 import { ColGroup } from './ColGroup';
-import type { Sort, Config } from './types';
+import type { Config } from './types';
 
 type Props<R> = {|
   config: Config<R>,
-  initialSort?: Sort,
   isLoading?: boolean,
   records: $ReadOnlyArray<R>,
-  onSort?: (sort: Sort) => mixed,
 |};
 
 export function Table<R>(props: Props<R>) {
-  const { isLoading = false, initialSort = null } = props;
+  const { isLoading = false } = props;
   const { columns } = props.config;
 
   return (
     <div className={styles.container}>
       <table className={styles.Table}>
         <ColGroup columns={columns} />
-        <THead
-          columns={columns}
-          onSort={props.onSort}
-          initialSort={initialSort}
-        />
+        <THead columns={columns} />
         <TBody columns={columns} records={props.records} />
         <TFoot columns={columns} />
       </table>

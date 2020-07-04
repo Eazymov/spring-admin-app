@@ -8,8 +8,7 @@ import type { InputAutoComplete } from '../constants';
 
 export type Props = {|
   error?: boolean,
-  className?: string,
-  disabled?: boolean,
+  readOnly?: boolean,
   value: null | string,
   placeholder?: string,
   autoComplete?: InputAutoComplete,
@@ -29,7 +28,7 @@ export function PasswordInput(props: Props) {
     <input
       value={props.value}
       onChange={handleChange}
-      disabled={props.disabled}
+      readOnly={props.readOnly}
       type={INPUT_TYPES.PASSWORD}
       placeholder={props.placeholder}
       className={getClassName(props)}

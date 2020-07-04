@@ -4,6 +4,12 @@ import * as React from 'react';
 import { Users } from '../Users';
 import { routes } from '../../routes';
 import { Articles } from '../Articles';
+import { UserRead } from '../Users/Read';
+import { UserUpdate } from '../Users/Update';
+import { UserCreate } from '../Users/Create';
+import { ArticleRead } from '../Articles/Read';
+import { ArticleUpdate } from '../Articles/Update';
+import { ArticleCreate } from '../Articles/Create';
 
 type RouteProps = {||};
 
@@ -29,15 +35,15 @@ export const routeComponents: $ReadOnlyArray<Route> = [
    */
   {
     ...routes.article.update,
-    component: () => 'Article',
+    component: ArticleUpdate,
   },
   {
     ...routes.article.create,
-    component: () => 'Article',
+    component: ArticleCreate,
   },
   {
     ...routes.article.read,
-    component: () => 'Article',
+    component: ArticleRead,
   },
   {
     ...routes.article.index,
@@ -48,15 +54,15 @@ export const routeComponents: $ReadOnlyArray<Route> = [
    */
   {
     ...routes.user.update,
-    component: () => 'Users',
+    component: UserUpdate,
   },
   {
     ...routes.user.create,
-    component: () => 'Users',
+    component: UserCreate,
   },
   {
     ...routes.user.read,
-    component: () => 'Users',
+    component: UserRead,
   },
   {
     ...routes.user.index,

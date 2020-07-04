@@ -9,3 +9,10 @@ export const config = {
   content: t.string,
   description: t.string,
 };
+
+export const defaultConfig = {
+  ...Base.defaultConfig,
+  title: t.string,
+  content: t.string,
+  description: t.string,
+};

@@ -22,8 +22,6 @@ export function Header(props: Props) {
 
           invariant(isDef(lastRoute), 'Unexpected undefined');
 
-          console.log(navigationPath);
-
           return (
             <Route
               exact

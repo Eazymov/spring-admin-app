@@ -9,8 +9,7 @@ import type { InputAutoComplete } from '../constants';
 export type Props = {|
   value: string,
   error?: boolean,
-  disabled?: boolean,
-  className?: string,
+  readOnly?: boolean,
   placeholder?: string,
   autoComplete?: InputAutoComplete,
   onChange?: (value: string) => mixed,
@@ -30,7 +29,7 @@ export function TextInput(props: Props) {
       value={props.value}
       onChange={handleChange}
       type={INPUT_TYPES.TEXT}
-      disabled={props.disabled}
+      readOnly={props.readOnly}
       placeholder={props.placeholder}
       className={getClassName(props)}
       autoComplete={props.autoComplete}

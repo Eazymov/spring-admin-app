@@ -1,0 +1,10 @@
+@import '../../scss/mixins.scss';
+
+.Link {
+  color: $primaryDarkColor;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}

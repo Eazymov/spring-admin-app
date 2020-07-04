@@ -14,6 +14,13 @@ export const http = {
     });
   },
 
+  put(route: string, config?: MethodConfig) {
+    return request(route, {
+      ...config,
+      method: HTTP_METHODS.PUT,
+    });
+  },
+
   post(route: string, config?: MethodConfig) {
     return request(route, {
       ...config,

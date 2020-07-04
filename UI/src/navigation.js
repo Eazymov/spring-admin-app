@@ -56,17 +56,15 @@ export const navigation: $ReadOnlyArray<Group> = [
         subRoutes: [
           {
             ...routes.article.create,
-            title: 'Add a New Article',
+            title: 'Add Article',
           },
           {
             ...routes.article.read,
-            title: 'Article',
-            subRoutes: [
-              {
-                ...routes.article.update,
-                title: 'Update Article',
-              },
-            ],
+            title: 'Read Article',
+          },
+          {
+            ...routes.article.update,
+            title: 'Update Article',
           },
         ],
       },
@@ -78,17 +76,15 @@ export const navigation: $ReadOnlyArray<Group> = [
         subRoutes: [
           {
             ...routes.user.create,
-            title: 'Add a New User',
+            title: 'Add User',
           },
           {
             ...routes.user.read,
-            title: 'User',
-            subRoutes: [
-              {
-                ...routes.user.update,
-                title: 'Update User',
-              },
-            ],
+            title: 'Read User',
+          },
+          {
+            ...routes.user.update,
+            title: 'Update User',
           },
         ],
       },

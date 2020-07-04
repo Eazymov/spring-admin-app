@@ -1,0 +1,7 @@
+@import '../Col/styles.scss';
+
+.Container {
+  margin: -#{$hMargin} -#{$vMargin};
+  flex-flow: row wrap;
+  display: flex;
+}

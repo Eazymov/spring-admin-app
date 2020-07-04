@@ -1,17 +1,15 @@
 /* @flow strict */
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import { routes } from '../../routes';
 import { Article } from '../../contracts';
-import { Icon, Button } from '../../controls';
+import { Icon, Link, Button } from '../../controls';
 
 export const tableConfig = {
   columns: [
     {
       key: 'title',
       name: 'Title',
-      sortable: true,
       render: (article: Article.Type) => (
         <Link to={routes.article.read.path(article.id)}>{article.title}</Link>
       ),
@@ -19,19 +17,16 @@ export const tableConfig = {
     {
       key: 'description',
       name: 'Description',
-      sortable: true,
       render: (article: Article.Type) => article.description,
     },
     {
       key: 'createdBy',
       name: 'Created by',
-      sortable: true,
       render: (article: Article.Type) => article.createdBy.username,
     },
     {
       key: 'updatedBy',
       name: 'Updated by',
-      sortable: true,
       render: (article: Article.Type) => article.updatedBy.username,
     },
     {

@@ -1,0 +1,13 @@
+$hMargin: 8px;
+$vMargin: 15px;
+
+.Col {
+  padding: $hMargin $vMargin;
+  flex-flow: column nowrap;
+  display: flex;
+  flex: 0 0 auto;
+
+  > *:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}

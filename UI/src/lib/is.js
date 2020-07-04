@@ -1,4 +1,5 @@
 /* @flow strict */
+import { REGEXPS } from '../constants';
 
 export function isDef(arg: mixed): boolean %checks {
   return typeof arg !== 'undefined';
@@ -66,4 +67,8 @@ export function isEmpty<T>(arg: string | $ReadOnlyArray<T>): boolean {
 
 export function isNotEmpty<T>(arg: string | $ReadOnlyArray<T>): boolean {
   return arg.length > 0;
+}
+
+export function isEmail(arg: mixed): boolean %checks {
+  return isString(arg) && REGEXPS.EMAIL.test(arg);
 }

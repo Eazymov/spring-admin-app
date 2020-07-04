@@ -11,7 +11,3 @@
 .Input.error {
   @include controlError;
 }
-
-.Input.disabled {
-  @include controlDisabled;
-}

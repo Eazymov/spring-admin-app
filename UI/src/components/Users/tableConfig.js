@@ -1,41 +1,37 @@
 /* @flow strict */
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import { routes } from '../../routes';
 import { User } from '../../contracts';
-import { Icon, Button } from '../../controls';
+import { Icon, Link, Button } from '../../controls';
 
 export const tableConfig = {
   columns: [
     {
       key: 'username',
       name: 'Username',
-      sortable: true,
-      render: (user: User.Type) => user.username,
+      render: (user: User.Type) => (
+        <Link to={routes.user.read.path(user.id)}>{user.username}</Link>
+      ),
     },
     {
       key: 'email',
       name: 'Email',
-      sortable: true,
       render: (user: User.Type) => user.email,
     },
     {
       key: 'role',
       name: 'Role',
-      sortable: true,
-      render: (user: User.Type) => user.role,
+      render: (user: User.Type) => User.rolesEnum.getByValue(user.role).label,
     },
     {
       key: 'createdBy',
       name: 'Created by',
-      sortable: true,
       render: (user: User.Type) => user.createdBy.username,
     },
     {
       key: 'updatedBy',
       name: 'Updated by',
-      sortable: true,
       render: (user: User.Type) => user.updatedBy.username,
     },
     {

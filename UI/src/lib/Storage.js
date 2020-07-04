@@ -1,6 +1,6 @@
 /* @flow strict */
 import { isString } from './is';
-import { validateString } from '../contracts/validators';
+import { enforceString } from './enforce';
 
 const keys = {
   token: 'token',
@@ -11,7 +11,7 @@ export const Storage = {
     const token = localStorage.getItem(keys.token);
 
     if (isString(token)) {
-      return validateString(JSON.parse(token));
+      return enforceString(JSON.parse(token));
     }
 
     return null;

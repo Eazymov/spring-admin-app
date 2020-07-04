@@ -1,0 +1,5 @@
+@import '../../scss/control.scss';
+
+.Select {
+  @include input;
+}
