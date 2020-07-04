@@ -7,7 +7,9 @@ import { Articles } from '../Articles';
 import { UserRead } from '../Users/Read';
 import { UserUpdate } from '../Users/Update';
 import { UserCreate } from '../Users/Create';
+import { AccountRead } from '../Account/Read';
 import { ArticleRead } from '../Articles/Read';
+import { AccountUpdate } from '../Account/Update';
 import { ArticleUpdate } from '../Articles/Update';
 import { ArticleCreate } from '../Articles/Create';
 
@@ -24,11 +26,11 @@ export const routeComponents: $ReadOnlyArray<Route> = [
    */
   {
     ...routes.account.update,
-    component: () => 'Account',
+    component: AccountUpdate,
   },
   {
     ...routes.account.index,
-    component: () => 'Account',
+    component: AccountRead,
   },
   /**
    * Articles

@@ -1,10 +1,9 @@
 /* @flow strict */
 import { v4 } from 'uuid';
 
-import type { Default } from './types';
 import { validateDefault } from './validators';
 
-export function getDefault(): Default {
+export function getDefault() {
   return validateDefault({
     id: v4(),
     createdOn: null,

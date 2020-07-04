@@ -14,7 +14,7 @@ type Props = {|
   children: React.Node,
 |};
 
-export function LoginProvider(props: Props) {
+export function SignInProvider(props: Props) {
   const history = useHistory();
   const [user, setUser] = useLoggedInUser();
   const [error, setError] = React.useState(null);
@@ -27,7 +27,7 @@ export function LoginProvider(props: Props) {
         const err = formatError(thrown);
 
         if (err.code === HTTP_STATUSES.UNAUTHORIZED) {
-          history.push(routes.login.index.path);
+          history.push(routes.signIn.index.path);
         } else {
           setError(err);
         }

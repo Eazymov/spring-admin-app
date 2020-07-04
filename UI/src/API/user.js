@@ -6,7 +6,7 @@ import { User } from '../contracts';
 import { enforceString } from '../lib/enforce';
 import { toStrictValidator } from '../contracts/utils';
 
-type LoginForm = {|
+type SignInForm = {|
   username: string,
   password: string,
 |};
@@ -20,7 +20,7 @@ export const user = {
     return http.get(route).then(validateUsers);
   },
 
-  login(form: LoginForm) {
+  signIn(form: SignInForm) {
     return http
       .post('/login', {
         data: form,

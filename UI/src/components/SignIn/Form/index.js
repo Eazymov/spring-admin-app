@@ -4,12 +4,20 @@ import styles from './styles.module.scss';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import {
+  Flex,
+  Form,
+  Link,
+  Error,
+  Input,
+  Button,
+  Gapped,
+} from '../../../controls';
 import { API } from '../../../API';
 import { routes } from '../../../routes';
 import { validators } from './validators';
 import { isNotNull } from '../../../lib/is';
 import { useForm, useError, usePending } from '../../../lib/hooks';
-import { Flex, Form, Error, Input, Button, Gapped } from '../../../controls';
 
 type Props = {||};
 
@@ -19,15 +27,15 @@ const initialForm = {
   password: '',
 };
 
-export function LoginForm(props: Props) {
+export function SignInForm(props: Props) {
   const history = useHistory();
   const [error, handleError] = useError();
-  const [login, isLoading] = usePending(API.user.login);
+  const [signIn, isSigningIn] = usePending(API.user.signIn);
   const onSubmit = React.useCallback(
     form => {
-      login(form).then(() => history.push(routes.root.path), handleError);
+      signIn(form).then(() => history.push(routes.root.path), handleError);
     },
-    [login, history, handleError],
+    [signIn, history, handleError],
   );
 
   const { form, errors, submit, setters, validity, required } = useForm(
@@ -39,9 +47,9 @@ export function LoginForm(props: Props) {
   );
 
   return (
-    <Gapped gap={20} vertical className={styles.LoginForm}>
+    <Gapped gap={20} vertical className={styles.SignInForm}>
       <Flex justify={Flex.justify.CENTER}>
-        <Form.Title>Login</Form.Title>
+        <Form.Title>Sign In</Form.Title>
       </Flex>
 
       <Field>
@@ -70,12 +78,17 @@ export function LoginForm(props: Props) {
         </Field.Control>
       </Field>
 
+      <span className={styles.text}>
+        Don&apos;t have an account?&nbsp;
+        <Link to={routes.signUp.index.path}>Sign up</Link>
+      </span>
+
       {isNotNull(error) && <Error error={error} />}
 
       <Flex justify={Flex.justify.CENTER}>
         <Button
           onClick={submit}
-          loading={isLoading}
+          loading={isSigningIn}
           size={Button.sizes.BIG}
           theme={Button.themes.PRIMARY}
         >

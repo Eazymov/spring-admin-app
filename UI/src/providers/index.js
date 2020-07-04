@@ -1,2 +1,2 @@
 /* @flow strict */
-export { LoginProvider } from './LoginProvider';
+export { SignInProvider } from './SignInProvider';

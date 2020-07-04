@@ -3,15 +3,15 @@ import * as React from 'react';
 
 import { Main } from '../Main';
 import { Sidebar } from '../Sidebar';
-import { LoginProvider } from '../../providers';
+import { SignInProvider } from '../../providers';
 
 type Props = {||};
 
 export function App(props: Props) {
   return (
-    <LoginProvider>
+    <SignInProvider>
       <Sidebar />
       <Main />
-    </LoginProvider>
+    </SignInProvider>
   );
 }

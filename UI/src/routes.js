@@ -18,9 +18,14 @@ export const routes = {
   root: {
     path: '',
   },
-  login: {
+  signIn: {
     index: {
-      path: '/login',
+      path: '/sign-in',
+    },
+  },
+  signUp: {
+    index: {
+      path: '/sign-up',
     },
   },
   account: {

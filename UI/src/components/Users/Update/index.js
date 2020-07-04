@@ -4,10 +4,11 @@ import styles from './styles.module.scss';
 import * as React from 'react';
 
 import { UserForm } from '../Form';
-import { Card, Error } from '../../../controls';
+import { validators } from '../Form/validators';
 import { isNull, isNotNull } from '../../../lib/is';
 import { enforceString } from '../../../lib/enforce';
 import { routes, ROUTE_PARAMS } from '../../../routes';
+import { Card, Form, Icon, Error, Button } from '../../../controls';
 import { useUser, useSubmit, useRouteParam } from '../../../lib/hooks';
 
 type Props = {||};
@@ -21,9 +22,9 @@ export function UserUpdate(props: Props) {
     user,
     loadUser,
     updateUser,
-    isCreating,
+    isUpdating,
     loadingError,
-    creatingError,
+    updatingError,
   } = useUser();
   const handleSubmit = useSubmit(updateUser, getBackRoute);
   const id = useRouteParam(ROUTE_PARAMS.USER_ID.name, enforceString);
@@ -43,12 +44,42 @@ export function UserUpdate(props: Props) {
   return (
     <Card className={styles.UserUpdate}>
       <Card.Header title="Update User" />
-      <UserForm
-        initialForm={user}
-        error={creatingError}
-        isLoading={isCreating}
-        onSubmit={handleSubmit}
-      />
+      <Form initialForm={user} validators={validators} onSubmit={handleSubmit}>
+        {({
+          form,
+          submit,
+          errors,
+          setters,
+          required,
+          validity,
+          createSetter,
+        }) => (
+          <>
+            <Card.Body>
+              <UserForm
+                form={form}
+                errors={errors}
+                setters={setters}
+                validity={validity}
+                required={required}
+                error={updatingError}
+                createSetter={createSetter}
+              />
+            </Card.Body>
+            <Card.Footer>
+              <Button
+                onClick={submit}
+                loading={isUpdating}
+                size={Button.sizes.BIG}
+                theme={Button.themes.PRIMARY}
+                leftIcon={<Icon.icons.Edit width={16} />}
+              >
+                Update
+              </Button>
+            </Card.Footer>
+          </>
+        )}
+      </Form>
     </Card>
   );
 }
