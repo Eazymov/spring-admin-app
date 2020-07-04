@@ -4,10 +4,16 @@ import java.util.UUID;
 
 import java.sql.Timestamp;
 
+import com.admin.api.utils.Choose;
 import com.admin.api.utils.SQLEnum;
 import com.admin.api.enums.UserRole;
+import com.admin.api.models.base.Base;
 
-import javax.persistence.*;
+import javax.persistence.Table;
+import javax.persistence.Entity;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -15,15 +21,11 @@ import org.hibernate.annotations.TypeDef;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "users")
 @TypeDef(name = "enum", typeClass = SQLEnum.class)
-public class User {
-  @Id
-  private UUID id;
-
+public class User extends Base {
   @Size(min = 0, max = 255)
   private String firstName;
 
@@ -47,20 +49,6 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserRole role;
 
-  private Timestamp createdOn;
-
-  private Timestamp updatedOn;
-
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "createdById")
-  @JsonSerialize(using = ShortUserSerializer.class)
-  private User createdBy;
-
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "updatedById")
-  @JsonSerialize(using = ShortUserSerializer.class)
-  private User updatedBy;
-
   public User() {}
 
   public User(
@@ -77,7 +65,8 @@ public class User {
     User createdBy,
     User updatedBy
   ) {
-    this.id = id;
+    super(id, createdOn, updatedOn, createdBy, updatedBy);
+
     this.firstName = firstName;
     this.lastName = lastName;
     this.patronymic = patronymic;
@@ -85,67 +74,64 @@ public class User {
     this.email = email;
     this.password = password;
     this.role = role;
-    this.createdOn = createdOn;
-    this.updatedOn = updatedOn;
 
-    if (createdBy == null) {
-      this.createdBy = this;
-    } else {
-      this.createdBy = createdBy;
-    }
-
-    if (updatedBy == null) {
-      this.updatedBy = this;
-    } else {
-      this.updatedBy = updatedBy;
-    }
-  }
-
-  public UUID getId() {
-    return id;
+    this.setCreatedBy(Choose.or(createdBy, this));
+    this.setUpdatedBy(Choose.or(updatedBy, this));
   }
 
   public String getFirstName() {
     return firstName;
   }
 
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
   public String getLastName() {
     return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public String getPatronymic() {
     return patronymic;
   }
 
+  public void setPatronymic(String patronymic) {
+    this.patronymic = patronymic;
+  }
+
   public String getUsername() {
     return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getEmail() {
     return email;
   }
 
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   public String getPassword() {
     return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public UserRole getRole() {
     return role;
   }
 
-  public Timestamp getCreatedOn() {
-    return createdOn;
-  }
-
-  public Timestamp getUpdatedOn() {
-    return updatedOn;
-  }
-
-  public User getCreatedBy() {
-    return createdBy;
-  }
-
-  public User getUpdatedBy() {
-    return updatedBy;
+  public void setRole(UserRole role) {
+    this.role = role;
   }
 }

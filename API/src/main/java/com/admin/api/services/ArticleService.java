@@ -1,72 +1,64 @@
 package com.admin.api.services;
 
-import java.util.Collections;
 import java.util.List;
-
 import java.util.UUID;
 import java.util.Optional;
-
 import java.sql.Timestamp;
 
 import com.admin.api.models.user.User;
-import com.admin.api.models.user.UserInput;
-import com.admin.api.repositories.UserRepository;
+import com.admin.api.models.article.Article;
+import com.admin.api.models.article.ArticleInput;
+import com.admin.api.repositories.ArticleRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Service
-public class UserService implements UserDetailsService {
+public class ArticleService {
   @Autowired
-  private UserRepository repository;
+  private UserService userService;
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = repository.findByUsername(username);
+  @Autowired
+  private ArticleRepository repository;
 
-    if (user == null) {
-      throw new UsernameNotFoundException(username);
-    }
-
-    return new org.springframework.security.core.userdetails.User(
-      user.getUsername(),
-      user.getPassword(),
-      Collections.emptyList()
-    );
-  }
-  public List<User> findAll() {
-    return (List<User>) repository.findAll();
+  public List<Article> findAll() {
+    return (List<Article>) repository.findAll();
   }
 
-  public Optional<User> findById(UUID id) {
+  public Optional<Article> findById(UUID id) {
     return repository.findById(id);
   }
 
-  public User findByUsername(String username) {
-    return repository.findByUsername(username);
-  }
-
-  public User save(UserInput userInput) {
+  public Article update(ArticleInput articleInput) {
+    UUID id = articleInput.getId();
+    User currentUser = userService.findCurrent();
+    Article article = findById(id).orElseThrow();
     Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
 
-    User user = new User(
-      userInput.getId(),
-      userInput.getFirstName(),
-      userInput.getLastName(),
-      userInput.getPatronymic(),
-      userInput.getUsername(),
-      userInput.getEmail(),
-      userInput.getPassword(),
-      userInput.getRole(),
+    article.setTitle(articleInput.getTitle());
+    article.setContent(articleInput.getContent());
+    article.setDescription(articleInput.getDescription());
+    article.setUpdatedOn(timeStamp);
+    article.setUpdatedBy(currentUser);
+
+    return repository.save(article);
+  }
+
+  public Article create(ArticleInput articleInput) {
+    User currentUser = userService.findCurrent();
+    Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+
+    Article article = new Article(
+      articleInput.getId(),
+      articleInput.getTitle(),
+      articleInput.getDescription(),
+      articleInput.getContent(),
       timeStamp,
       timeStamp,
-      null,
-      null
+      currentUser,
+      currentUser
     );
     
-    return repository.save(user);
+    return repository.save(article);
   }
 }

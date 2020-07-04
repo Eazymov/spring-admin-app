@@ -11,7 +11,7 @@ export function useError() {
 
     setError(err);
 
-    return err;
+    throw err;
   }, []);
 
   return [error, handleError];

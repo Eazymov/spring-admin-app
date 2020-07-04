@@ -2,21 +2,18 @@ package com.admin.api.models.user;
 
 import java.util.UUID;
 
-public class ShortUser {
-  private UUID id;
+import com.admin.api.models.base.BaseShort;
 
+public class ShortUser extends BaseShort {
   private String username;
 
   public ShortUser(
     UUID id,
     String username
   ) {
-    this.id = id;
-    this.username = username;
-  }
+    super(id);
 
-  public UUID getId() {
-    return id;
+    this.username = username;
   }
 
   public String getUsername() {

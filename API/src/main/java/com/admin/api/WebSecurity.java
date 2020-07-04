@@ -1,11 +1,15 @@
 package com.admin.api;
 
+import java.util.List;
+import java.util.Arrays;
+
 import com.admin.api.services.UserService;
+import com.admin.api.utils.Http422EntryPoint;
 import com.admin.api.constants.SecurityConstants;
 import com.admin.api.filters.JWTAuthorizationFilter;
 import com.admin.api.filters.JWTAuthenticationFilter;
 
-import com.admin.api.utils.Http422EntryPoint;
+import org.springframework.http.HttpMethod;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -65,8 +69,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    List<String> allowedMethods = Arrays.asList(
+      HttpMethod.GET.name(),
+      HttpMethod.PUT.name(),
+      HttpMethod.POST.name()
+    );
 
     config.setAllowCredentials(true);
+    config.setAllowedMethods(allowedMethods);
     source.registerCorsConfiguration("/**", config);
 
     return source;

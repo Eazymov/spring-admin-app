@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS articles;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -10,7 +11,7 @@ CREATE TYPE userRole AS ENUM (
   'SUPER_ADMIN'
 );
 
-CREATE TABLE IF NOT EXISTS users(
+CREATE TABLE users(
   id UUID PRIMARY KEY NOT NULL,
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
@@ -19,6 +20,17 @@ CREATE TABLE IF NOT EXISTS users(
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   role userRole NOT NULL,
+  createdOn TIMESTAMP NOT NULL,
+  updatedOn TIMESTAMP NOT NULL,
+  createdById UUID NOT NULL,
+  updatedById UUID NOT NULL
+);
+
+CREATE TABLE articles(
+  id UUID PRIMARY KEY NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
   createdOn TIMESTAMP NOT NULL,
   updatedOn TIMESTAMP NOT NULL,
   createdById UUID NOT NULL,

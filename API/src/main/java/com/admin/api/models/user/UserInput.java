@@ -3,10 +3,9 @@ package com.admin.api.models.user;
 import java.util.UUID;
 
 import com.admin.api.enums.UserRole;
+import com.admin.api.models.base.BaseShort;
 
-public class UserInput {
-  private UUID id;
-
+public class UserInput extends BaseShort {
   private String firstName;
 
   private String lastName;
@@ -33,7 +32,8 @@ public class UserInput {
     String password,
     UserRole role
   ) {
-    this.id = id;
+    super(id);
+
     this.firstName = firstName;
     this.lastName = lastName;
     this.patronymic = patronymic;
@@ -41,10 +41,6 @@ public class UserInput {
     this.email = email;
     this.password = password;
     this.role = role;
-  }
-
-  public UUID getId() {
-    return id;
   }
 
   public String getFirstName() {

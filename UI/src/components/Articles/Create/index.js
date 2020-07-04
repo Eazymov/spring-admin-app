@@ -11,7 +11,7 @@ import { useSubmit, useArticle } from '../../../lib/hooks';
 
 type Props = {||};
 
-function getBackRoute(article) {
+function getBackRoute(article: Article.Type) {
   return routes.article.read.path(article.id);
 }
 

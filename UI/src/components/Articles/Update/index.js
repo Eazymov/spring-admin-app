@@ -4,6 +4,7 @@ import styles from './styles.module.scss';
 import * as React from 'react';
 
 import { ArticleForm } from '../Form';
+import { Article } from '../../../contracts';
 import { Card, Error } from '../../../controls';
 import { isNull, isNotNull } from '../../../lib/is';
 import { enforceString } from '../../../lib/enforce';
@@ -12,7 +13,7 @@ import { useSubmit, useArticle, useRouteParam } from '../../../lib/hooks';
 
 type Props = {||};
 
-function getBackRoute(article) {
+function getBackRoute(article: Article.Type) {
   return routes.article.read.path(article.id);
 }
 

@@ -1,77 +1,40 @@
-package com.admin.api.models.user;
+package com.admin.api.models.article;
+
+import com.admin.api.models.base.BaseShort;
 
 import java.util.UUID;
 
-import com.admin.api.enums.UserRole;
-import com.admin.api.models.base.BaseShort;
+public class ArticleInput extends BaseShort {
+  private String title;
 
-public class UserInput extends BaseShort {
-  private String firstName;
+  private String description;
 
-  private String lastName;
+  private String content;
 
-  private String patronymic;
+  public ArticleInput() {}
 
-  private String username;
-
-  private String email;
-
-  private String password;
-
-  private UserRole role;
-
-  public UserInput() {}
-
-  public UserInput(
+  public ArticleInput(
     UUID id,
-    String firstName,
-    String lastName,
-    String patronymic,
-    String username,
-    String email,
-    String password,
-    UserRole role
+    String title,
+    String description,
+    String content
   ) {
     super(id);
 
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.patronymic = patronymic;
-    this.username = username;
-    this.email = email;
-    this.password = password;
-    this.role = role;
+    this.title = title;
+    this.description = description;
+    this.content = content;
   }
 
-  public String getFirstName() {
-    return firstName;
+  public String getTitle() {
+    return title;
   }
 
-  public String getLastName() {
-    return lastName;
+  public String getDescription() {
+    return description;
   }
 
-  public String getPatronymic() {
-    return patronymic;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public String setPassword(String password) {
-    return this.password = password;
-  }
-
-  public UserRole getRole() {
-    return role;
+  public String getContent() {
+    return content;
   }
 }

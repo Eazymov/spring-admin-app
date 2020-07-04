@@ -12,24 +12,22 @@ export function useUser() {
   const [loadingError, onLoadingError] = useError();
   const [updatingError, onUpdatingError] = useError();
   const [creatingError, onCreatingError] = useError();
-  const [load, isLoading] = usePending(API.user.getById);
+  const [get, isLoading] = usePending(API.user.getById);
   const [update, isUpdating] = usePending(API.user.update);
-  const [createClient, isCreating] = usePending(API.user.create);
+  const [create, isCreating] = usePending(API.user.create);
 
   const loadUser = React.useCallback(
-    (id: string) => load(id).then(setUser).catch(onLoadingError),
-    [load, onLoadingError],
+    (id: string) => get(id).then(setUser, onLoadingError),
+    [get, onLoadingError],
   );
 
   const createUser = React.useCallback(
-    (newUser: User.Default) =>
-      createClient(newUser).then(setUser).catch(onCreatingError),
-    [createClient, onCreatingError],
+    (newUser: User.Default) => create(newUser).then(setUser, onCreatingError),
+    [create, onCreatingError],
   );
 
   const updateUser = React.useCallback(
-    (nextUser: User.Type) =>
-      update(nextUser).then(setUser).catch(onUpdatingError),
+    (nextUser: User.Type) => update(nextUser).then(setUser, onUpdatingError),
     [update, onUpdatingError],
   );
 

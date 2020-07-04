@@ -1,147 +1,68 @@
-package com.admin.api.models;
+package com.admin.api.models.article;
 
-import com.admin.api.enums.UserRole;
-import com.admin.api.models.user.ShortUserSerializer;
-import com.admin.api.utils.SQLEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 import java.util.UUID;
 
+import java.sql.Timestamp;
+
+import javax.persistence.Table;
+import javax.persistence.Entity;
+
+import com.admin.api.models.base.Base;
+import com.admin.api.models.user.User;
+
+import javax.validation.constraints.Size;
+
 @Entity
-@Table(name = "users")
-@TypeDef(name = "enum", typeClass = SQLEnum.class)
-public class Article {
-  @Id
-  private UUID id;
+@Table(name = "articles")
+public class Article extends Base {
+  @Size(min = 0, max = 255)
+  private String title;
 
   @Size(min = 0, max = 255)
-  private String firstName;
+  private String description;
 
-  @Size(min = 0, max = 255)
-  private String lastName;
-
-  @Size(min = 0, max = 255)
-  private String patronymic;
-
-  @Column(unique = true)
-  @Size(min = 0, max = 255)
-  private String username;
-
-  @Size(min = 0, max = 255)
-  private String email;
-
-  @JsonIgnore
-  private String password;
-
-  @Type(type = "enum")
-  @Enumerated(EnumType.STRING)
-  private UserRole role;
-
-  private Timestamp createdOn;
-
-  private Timestamp updatedOn;
-
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "createdById")
-  @JsonSerialize(using = ShortUserSerializer.class)
-  private Article createdBy;
-
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "updatedById")
-  @JsonSerialize(using = ShortUserSerializer.class)
-  private Article updatedBy;
+  private String content;
 
   public Article() {}
 
   public Article(
     UUID id,
-    String firstName,
-    String lastName,
-    String patronymic,
-    String username,
-    String email,
-    String password,
-    UserRole role,
+    String title,
+    String description,
+    String content,
     Timestamp createdOn,
     Timestamp updatedOn,
-    Article createdBy,
-    Article updatedBy
+    User createdBy,
+    User updatedBy
   ) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.patronymic = patronymic;
-    this.username = username;
-    this.email = email;
-    this.password = password;
-    this.role = role;
-    this.createdOn = createdOn;
-    this.updatedOn = updatedOn;
+    super(id, createdOn, updatedOn, createdBy, updatedBy);
 
-    if (createdBy == null) {
-      this.createdBy = this;
-    } else {
-      this.createdBy = createdBy;
-    }
-
-    if (updatedBy == null) {
-      this.updatedBy = this;
-    } else {
-      this.updatedBy = updatedBy;
-    }
+    this.title = title;
+    this.description = description;
+    this.content = content;
   }
 
-  public UUID getId() {
-    return id;
+  public String getTitle() {
+    return title;
   }
 
-  public String getFirstName() {
-    return firstName;
+  public void setTitle(String title) {
+    this.title = title;
   }
 
-  public String getLastName() {
-    return lastName;
+  public String getDescription() {
+    return description;
   }
 
-  public String getPatronymic() {
-    return patronymic;
+  public void setContent(String content) {
+    this.content = content;
   }
 
-  public String getUsername() {
-    return username;
+  public String getContent() {
+    return content;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public UserRole getRole() {
-    return role;
-  }
-
-  public Timestamp getCreatedOn() {
-    return createdOn;
-  }
-
-  public Timestamp getUpdatedOn() {
-    return updatedOn;
-  }
-
-  public Article getCreatedBy() {
-    return createdBy;
-  }
-
-  public Article getUpdatedBy() {
-    return updatedBy;
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
