@@ -1,6 +1,6 @@
 /* @flow stirct */
-import type { $ContractType } from '../types';
-import { contract, defaultContract } from './contracts';
+import type { $ValidatorType } from '../types';
+import { validate, validateDefault } from './validators';
 
-export type Type = $ContractType<typeof contract>;
-export type Default = $ContractType<typeof defaultContract>;
+export type Type = $ValidatorType<typeof validate>;
+export type Default = $ValidatorType<typeof validateDefault>;
