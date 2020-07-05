@@ -17,6 +17,10 @@ export function isTrue(arg: mixed): boolean %checks {
   return arg === true;
 }
 
+export function isFalse(arg: mixed): boolean %checks {
+  return arg === false;
+}
+
 export function isBool(arg: mixed): boolean %checks {
   return typeof arg === 'boolean';
 }

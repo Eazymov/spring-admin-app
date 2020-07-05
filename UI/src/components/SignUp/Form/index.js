@@ -4,13 +4,13 @@ import styles from './styles.module.scss';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { API } from '../../../API';
 import { routes } from '../../../routes';
 import { User } from '../../../contracts';
-import { isNotNull } from '../../../lib/is';
 import { UserForm } from '../../Users/Form';
 import { validators } from '../../Users/Form/validators';
-import { useForm, useUser, useError } from '../../../lib/hooks';
-import { Flex, Form, Link, Error, Button, Gapped } from '../../../controls';
+import { useForm, useError, usePending } from '../../../lib/hooks';
+import { Flex, Form, Link, Button, Gapped } from '../../../controls';
 
 type Props = {||};
 
@@ -20,7 +20,11 @@ function useSubmitHandler(createUser, handleError) {
   const history = useHistory();
 
   return React.useCallback(
-    form => {
+    (form, isValid) => {
+      if (!isValid) {
+        return;
+      }
+
       createUser(form).then(
         () => history.push(routes.signIn.index.path),
         handleError,
@@ -32,7 +36,7 @@ function useSubmitHandler(createUser, handleError) {
 
 export function SignUpForm(props: Props) {
   const [error, handleError] = useError();
-  const { isCreating, createUser, creatingError } = useUser();
+  const [createUser, isCreating] = usePending(API.user.signUp);
   const onSubmit = useSubmitHandler(createUser, handleError);
 
   const {
@@ -54,11 +58,11 @@ export function SignUpForm(props: Props) {
       <UserForm
         form={form}
         singleColumn
+        error={error}
         errors={errors}
         setters={setters}
         validity={validity}
         required={required}
-        error={creatingError}
         createSetter={createSetter}
       />
 
@@ -66,8 +70,6 @@ export function SignUpForm(props: Props) {
         Already have an account?&nbsp;
         <Link to={routes.signIn.index.path}>Sign in</Link>
       </span>
-
-      {isNotNull(error) && <Error error={error} />}
 
       <Flex justify={Flex.justify.CENTER}>
         <Button

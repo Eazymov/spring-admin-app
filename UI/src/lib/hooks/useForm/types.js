@@ -2,6 +2,25 @@
 
 export type Errors<F: { ... }> = $ObjMap<F, () => void | string>;
 
+declare function required<T>(v: ?T): void | boolean;
+// eslint-disable-next-line no-redeclare
+declare function required<T>(v: $NonMaybeType<T>): boolean;
+
+export type Required<F: { ... }> = $ObjMap<
+  F,
+  <V>(V) => $Call<typeof required, V>,
+>;
+
+export type Validity<F: { ... }> = Required<F>;
+
+type Setter = ((value: void) => void) &
+  ((value: mixed) => (value: mixed) => void);
+
+export type Setters<F: { ... }> = $ObjMapi<
+  F,
+  <K, V>(key: K, value: V) => $Call<Setter, V>,
+>;
+
 export type ValidatorResult = {|
   isValid: boolean,
   errorText: string,
@@ -35,18 +54,6 @@ export type Config<F: { ... }> = {|
   validators?: Validators<F>,
   changeHandler?: ChangeHandler<F>,
 |};
-
-type Setter = ((value: void) => void) &
-  ((value: mixed) => (value: mixed) => void);
-
-export type Setters<F: { ... }> = $ObjMapi<
-  F,
-  <K, V>(key: K, value: V) => $Call<Setter, V>,
->;
-
-export type Required<F: { ... }> = $ObjMap<F, () => boolean>;
-
-export type Validity<F: { ... }> = Required<F>;
 
 export type ValidityState<F: { ... }> = {|
   isValid: boolean,

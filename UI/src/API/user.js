@@ -29,6 +29,12 @@ export const user = {
       .then(http.setAuthToken);
   },
 
+  signUp(form: User.Default) {
+    return http.post('/sign-up', {
+      data: form,
+    });
+  },
+
   getById(id: string) {
     return http.get(`${route}/${id}`).then(User.validate);
   },

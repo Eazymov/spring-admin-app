@@ -29,15 +29,6 @@ export function UserDetails(props: Props) {
 
       <Form.Col>
         <Field inline>
-          <Field.Label size={Field.Label.sizes.III}>Password</Field.Label>
-          <Field.Control>
-            <Input.Password readOnly value={user.password ?? ''} />
-          </Field.Control>
-        </Field>
-      </Form.Col>
-
-      <Form.Col>
-        <Field inline>
           <Field.Label size={Field.Label.sizes.III}>First Name</Field.Label>
           <Field.Control>
             <Input.Text readOnly value={user.firstName} />

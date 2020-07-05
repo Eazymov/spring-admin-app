@@ -2,9 +2,11 @@
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { isString } from '../is';
+
 export function useSubmit<F, R>(
   onSubmit: (form: F) => Promise<R | Error>,
-  getBackRoute: (result: R) => string,
+  backRoute: string | ((result: R) => string),
 ): (form: F, isValid: boolean) => void {
   const history = useHistory();
 
@@ -16,10 +18,12 @@ export function useSubmit<F, R>(
             return result;
           }
 
-          return history.push(getBackRoute(result));
+          const route = isString(backRoute) ? backRoute : backRoute(result);
+
+          return history.push(route);
         });
       }
     },
-    [history, onSubmit, getBackRoute],
+    [history, onSubmit, backRoute],
   );
 }

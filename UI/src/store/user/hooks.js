@@ -2,8 +2,9 @@
 import invariant from 'invariant';
 
 import { isNotNull } from '../../lib/is';
-import { useStore } from '../../lib/store';
 import { type State, userStore } from './store';
+import { rolesEnum } from '../../contracts/User';
+import { useStore, useGetter } from '../../lib/store';
 
 export function useLoggedInUser() {
   return useStore<State>(userStore);
@@ -15,4 +16,14 @@ export function useCurrentUser() {
   invariant(isNotNull(user), 'Unexpected null');
 
   return [user, setUser];
+}
+
+function isAdminGetter(state) {
+  return [rolesEnum.ADMIN.value, rolesEnum.SUPER_ADMIN.value].includes(
+    state?.role,
+  );
+}
+
+export function useIsAdmin() {
+  return useGetter(userStore, isAdminGetter);
 }

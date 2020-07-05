@@ -21,7 +21,7 @@ export function useStore<State>(
   return [state, store.setState];
 }
 
-function useGetter<State, GetterState>(
+export function useGetter<State, GetterState>(
   store: Store<State>,
   get: (state: State) => GetterState,
 ): GetterState {
