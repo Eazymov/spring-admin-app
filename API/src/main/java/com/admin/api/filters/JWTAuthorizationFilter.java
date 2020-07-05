@@ -56,7 +56,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     String token = getToken(request);
 
     if (token == null) {
-      sendError(response);
+      chain.doFilter(request, response);
 
       return;
     }

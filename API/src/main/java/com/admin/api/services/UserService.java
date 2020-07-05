@@ -16,13 +16,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 @Service
 public class UserService implements UserDetailsService {
   @Autowired
   private UserRepository repository;
+
+  @Autowired
+  private BCryptPasswordEncoder cryptEncoder;
+
+  private void encryptPassword(UserInput userInput) {
+    String password = userInput.getPassword();
+
+    if (password != null) {
+      String encodedPassword = cryptEncoder.encode(password);
+
+      userInput.setPassword(encodedPassword);
+    }
+  }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -61,13 +74,15 @@ public class UserService implements UserDetailsService {
   }
 
   public User update(UserInput userInput) {
+    encryptPassword(userInput);
+
     UUID id = userInput.getId();
     User currentUser = findCurrent();
     User user = findById(id).orElseThrow();
+    String password = userInput.getPassword();
     Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
 
     user.setUsername(userInput.getUsername());
-    user.setPassword(userInput.getPassword());
     user.setFirstName(userInput.getFirstName());
     user.setLastName(userInput.getLastName());
     user.setPatronymic(userInput.getPatronymic());
@@ -76,10 +91,16 @@ public class UserService implements UserDetailsService {
     user.setUpdatedOn(timeStamp);
     user.setUpdatedBy(currentUser);
 
+    if (password != null) {
+      user.setPassword(password);
+    }
+
     return repository.save(user);
   }
 
   public User create(UserInput userInput) {
+    encryptPassword(userInput);
+
     Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
     User user = new User(
       userInput.getId(),
