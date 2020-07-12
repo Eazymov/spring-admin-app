@@ -4,16 +4,16 @@ import java.util.UUID;
 
 import java.sql.Timestamp;
 
-import com.admin.api.utils.Choose;
-import com.admin.api.utils.SQLEnum;
-import com.admin.api.enums.UserRole;
-import com.admin.api.models.base.Base;
-
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+
+import com.admin.api.utils.Choose;
+import com.admin.api.utils.SQLEnum;
+import com.admin.api.enums.UserRole;
+import com.admin.api.models.base.Base;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;

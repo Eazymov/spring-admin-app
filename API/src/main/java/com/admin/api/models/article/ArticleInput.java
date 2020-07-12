@@ -1,8 +1,8 @@
 package com.admin.api.models.article;
 
-import com.admin.api.models.base.BaseShort;
-
 import java.util.UUID;
+
+import com.admin.api.models.base.BaseShort;
 
 public class ArticleInput extends BaseShort {
   private String title;
