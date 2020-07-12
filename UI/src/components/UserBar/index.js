@@ -25,7 +25,7 @@ function logout() {
 export function UserBar(props: Props) {
   const [currentUser] = useCurrentUser();
   const className = CN(styles.UserBar, props.className);
-  const label = `User: ${currentUser.firstName} ${currentUser.lastName}`;
+  const label = `${currentUser.firstName} ${currentUser.lastName}`;
 
   return (
     <Dropdown label={label} className={className}>

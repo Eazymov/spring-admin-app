@@ -9,7 +9,6 @@ import type {
 } from '../../../lib/hooks/useForm';
 import { User } from '../../../contracts';
 import { isFalse } from '../../../lib/is';
-import { useIsAdmin } from '../../../store/user';
 import { BusinessError } from '../../../lib/error';
 import { Form, Error, Input, UserRoleSelect } from '../../../controls';
 
@@ -38,7 +37,6 @@ export function UserForm<F: User.Type | User.Default>(props: Props<F>) {
     createSetter,
     singleColumn = false,
   } = props;
-  const isAdmin = useIsAdmin();
   const colSize = singleColumn ? sizes.XII : sizes.VI;
 
   return (
@@ -122,16 +120,14 @@ export function UserForm<F: User.Type | User.Default>(props: Props<F>) {
         </Field>
       </Form.Col>
 
-      {isAdmin && (
-        <Form.Col size={colSize}>
-          <Field>
-            <Field.Label required={required.role}>Role</Field.Label>
-            <Field.Control error={errors.role}>
-              <UserRoleSelect value={form.role} onChange={setters.role} />
-            </Field.Control>
-          </Field>
-        </Form.Col>
-      )}
+      <Form.Col size={colSize}>
+        <Field>
+          <Field.Label required={required.role}>Role</Field.Label>
+          <Field.Control error={errors.role}>
+            <UserRoleSelect value={form.role} onChange={setters.role} />
+          </Field.Control>
+        </Field>
+      </Form.Col>
 
       {error && (
         <Form.Col size={sizes.XII}>

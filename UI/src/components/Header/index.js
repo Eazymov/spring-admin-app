@@ -32,7 +32,6 @@ export function Header(props: Props) {
                 <>
                   <h3 className={styles.title}>{lastRoute.title}</h3>
                   <div className={styles.path}>
-                    Location:
                     {navigationPath.map(route => {
                       const { path } = route;
                       const { params } = match;
