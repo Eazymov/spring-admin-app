@@ -8,6 +8,7 @@ const safePostCssParser = require('postcss-safe-parser');
 const DeadCodePlugin = require('webpack-deadcode-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -399,6 +400,16 @@ function configFactory(webpackEnv) {
       ],
     },
     plugins: [
+      isEnvDevelopment &&
+        new CircularDependencyPlugin({
+          // Exclude detection of files based on a RegExp
+          exclude: /contracts|node_modules/,
+          // Add errors to webpack instead of warnings
+          failOnError: false,
+          // Set the current working directory for displaying module paths
+          cwd: process.cwd(),
+        }),
+
       toBoolean(env.raw.CHECK_DEAD_CODE) &&
         new DeadCodePlugin({
           patterns: ['src/**/*.(js|scss)'],

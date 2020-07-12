@@ -1,7 +1,8 @@
 .row {
   border-bottom: 1px solid #eaeaea;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: rgba(4, 169, 245, 0.05);
   }
 

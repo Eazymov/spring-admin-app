@@ -1,15 +1,14 @@
 /* @flow strict */
 import * as React from 'react';
 
-import { useAutoRef } from '../hooks';
-
 import type { Store, Updater } from './types';
+import { useAutoRef } from '../hooks/useAutoRef';
 
 function defaultGetter<State>(state: State): State {
   return state;
 }
 
-export function useState<State>(store: Store<State>): State {
+function useState<State>(store: Store<State>): State {
   return useGetter(store, defaultGetter);
 }
 
@@ -21,7 +20,7 @@ export function useStore<State>(
   return [state, store.setState];
 }
 
-export function useGetter<State, GetterState>(
+function useGetter<State, GetterState>(
   store: Store<State>,
   get: (state: State) => GetterState,
 ): GetterState {

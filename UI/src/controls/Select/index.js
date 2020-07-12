@@ -3,7 +3,6 @@ import styles from './styles.scss';
 
 import * as React from 'react';
 
-import { Input } from '../Input';
 import { Dropdown } from '../Dropdown';
 
 type Props<T> = {|

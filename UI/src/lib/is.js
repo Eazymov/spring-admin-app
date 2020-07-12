@@ -13,10 +13,6 @@ export function isNull(arg: mixed): boolean %checks {
   return arg === null;
 }
 
-export function isTrue(arg: mixed): boolean %checks {
-  return arg === true;
-}
-
 export function isFalse(arg: mixed): boolean %checks {
   return arg === false;
 }

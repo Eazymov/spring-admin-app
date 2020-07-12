@@ -21,5 +21,3 @@ type RolesConfig = typeof rolesConfig;
 export type Role = $Value<RolesConfig>;
 
 export const rolesEnum = createEnum<RolesConfig>(rolesConfig);
-
-rolesEnum.ADMIN.value;

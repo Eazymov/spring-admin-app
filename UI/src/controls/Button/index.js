@@ -27,8 +27,8 @@ export function Button(props: Props) {
   const onTabFocus = useTabFocus(handleTabFocus);
 
   return (
-    // eslint-disable-next-line react/button-has-type
     <button
+      // eslint-disable-next-line react/button-has-type
       type={type}
       tabIndex="0"
       title={title}
